@@ -1,4 +1,4 @@
-package com.example.jan.todo;
+package todo.kebejaol.todo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

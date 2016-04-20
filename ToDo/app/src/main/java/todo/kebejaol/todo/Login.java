@@ -1,13 +1,13 @@
-package com.example.jan.todo;
+package todo.kebejaol.todo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Startbildschirm extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startbildschirm);
+        setContentView(R.layout.activity_login);
     }
 }
