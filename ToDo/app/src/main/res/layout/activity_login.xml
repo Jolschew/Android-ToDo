@@ -6,21 +6,12 @@
     android:layout_width="match_parent"
     android:padding="50dp">
 
-    <TextView
-        android:text="E-Mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <EditText
-        android:id="@+id/etE-Mail"
+        android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"/>
-
-    <TextView
-        android:text="Passwort"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_marginBottom="20dp"
+        android:hint="E-Mail" />
 
     <EditText
         android:id="@+id/etPasswort"
@@ -28,12 +19,21 @@
         android:maxLength="6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"/>
+        android:layout_marginBottom="20dp"
+        android:hint="Passwort" />
 
     <Button
         android:id="@+id/bLogin"
         android:text="Login"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:text="Registrieren"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
 
