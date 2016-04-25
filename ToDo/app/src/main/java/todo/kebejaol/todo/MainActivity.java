@@ -10,24 +10,36 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
 {
 
-    Button bLogout;
-    TextView tvLoginLink;
+    Button bRegister;
+    TextView bLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bLogout = (Button) findViewById(R.id.bLogout);
-        tvLoginLink = (TextView) findViewById(R.id.tvLogin);
+        // get Button References
+        bRegister = (Button) findViewById(R.id.bRegister);
+        bLogin = (TextView) findViewById(R.id.bLogin);
 
-       // bLogout.setOnClickListener(this);
-        tvLoginLink.setOnClickListener(new View.OnClickListener() {
+        // set OnClick Listener to Register Button and start Register Activity
+        bRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent loginIntent = new Intent(MainActivity.this, Register.class);
+                MainActivity.this.startActivity(loginIntent);
+            }
+        });
+
+       // set OnClick Listener to Login Button and start Login Activity
+        bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent loginIntent = new Intent(MainActivity.this, Login.class);
                 MainActivity.this.startActivity(loginIntent);
             }
         });
+
+
     }
 
 
