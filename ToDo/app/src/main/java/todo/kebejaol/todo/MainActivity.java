@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener
+public class MainActivity extends AppCompatActivity
 {
 
     Button bLogout;
@@ -20,17 +20,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bLogout = (Button) findViewById(R.id.bLogout);
         tvLoginLink = (TextView) findViewById(R.id.tvLogin);
 
-        bLogout.setOnClickListener(this);
+       // bLogout.setOnClickListener(this);
+        tvLoginLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent loginIntent = new Intent(MainActivity.this, Login.class);
+                MainActivity.this.startActivity(loginIntent);
+            }
+        });
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case (R.id.bLogout):
-                break;
-            case (R.id.tvLogin):
-                startActivity(new Intent(this, Login.class));
-                break;
-        }
-    }
+
 }
