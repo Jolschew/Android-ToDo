@@ -6,4 +6,5 @@ package todo.kebejaol.todo;
  * Handle CRUD Operations
  */
 public class LoginDBAdapter {
+    public static final String DB_CREATE = "";
 }
