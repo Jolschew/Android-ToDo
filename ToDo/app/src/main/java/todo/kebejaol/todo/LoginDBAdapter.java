@@ -17,7 +17,7 @@ public class LoginDBAdapter {
     static final int NAME_COLUMN = 1;
 
     //Database Creation Statement
-    public static final String DB_CREATE = "create table "+ "LOGIN"+ "( " +"ID"+" integer primary key autoincrement,"+ "EMAIL  text,PASSWORD integer); ";
+    public static final String DB_CREATE = "create table "+ "LOGIN"+ "( " +"ID"+" integer primary key autoincrement,"+ "EMAIL  text,PASSWORD text); ";
 
     //instance of database
     public SQLiteDatabase db;
@@ -47,7 +47,7 @@ public class LoginDBAdapter {
     }
 
     // CREATE
-    public void insertEntry(String eMail, int password)
+    public void insertEntry(String eMail, String password)
     {
         ContentValues registerValues = new ContentValues();
         // Assign Values to DB
@@ -77,7 +77,7 @@ public class LoginDBAdapter {
     }
 
     // UPDATE
-    public void updateEntry(String eMail, int password)
+    public void updateEntry(String eMail, String password)
     {
         ContentValues updatedValues = new ContentValues();
         updatedValues.put("EMAIL", eMail);
