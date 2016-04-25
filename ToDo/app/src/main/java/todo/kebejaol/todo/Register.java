@@ -23,6 +23,7 @@ public class Register extends AppCompatActivity {
      */
     private GoogleApiClient client;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +35,13 @@ public class Register extends AppCompatActivity {
         final EditText etPassword = (EditText) findViewById(R.id.etPasswort);
         final EditText etPassword2 = (EditText) findViewById(R.id.etPasswort2);
         final TextView tvRegisterError = (TextView) findViewById(R.id.tvRegisterError);
-
+        final TextView tvLoginLink = (TextView) findViewById(R.id.tvLogin);
         final Button bRegister = (Button) findViewById(R.id.bRegister);
 
         if (bRegister != null) {
 
             bRegister.setOnClickListener(new View.OnClickListener() {
+
                 public void onClick(View view){
 
                     String email = etEmail.getText().toString().trim();
@@ -67,29 +69,32 @@ public class Register extends AppCompatActivity {
                         // TODO error handling
                         loginDBAdapter.insertEntry(email, password);
 
-                        tvRegisterError.setText(R.string.registration_info_successful_registration);
-                        tvRegisterError.setVisibility(View.VISIBLE);
+                        Toast toast = Toast.makeText(getApplicationContext(), R.string.registration_info_successful_registration, Toast.LENGTH_LONG);
+                        toast.show();
 
-                        // TODO change activity to login or overview
+                        // change activity to login or overview
+                        Intent overviewIntent = new Intent(Register.this, Overview.class);
+                        Register.this.startActivity(overviewIntent);
 
                     }
-                }
-            });
-        }
-
-
-        final TextView tvLoginLink = (TextView) findViewById(R.id.tvLogin);
+                } // onClick
+            }); // setOnclickListener
+        } // bRegister != null
 
 
         // Create Intent to Login View
-        tvLoginLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent loginIntent = new Intent(Register.this, Login.class);
-                Register.this.startActivity(loginIntent);
-            }
-        });
+        if (tvLoginLink != null) {
 
+            tvLoginLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent loginIntent = new Intent(Register.this, Login.class);
+                    Register.this.startActivity(loginIntent);
+                }
+
+            });
+
+        }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -135,4 +140,15 @@ public class Register extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
-}
+
+    /* TODO
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        loginDBAdapter.close();
+    }
+
+    */
+
+} // class
