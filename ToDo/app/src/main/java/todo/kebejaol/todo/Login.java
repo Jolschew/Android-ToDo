@@ -25,6 +25,10 @@ public class Login extends AppCompatActivity{
         final Button bLogin = (Button) findViewById((R.id.bLogin));
         final TextView tvRegisterLink = (TextView) findViewById(R.id.tvRegister);
 
+        // TODO hack loeschen!
+        etEmail.setText("a@a.a");
+        etPassword.setText("111111");
+
         if (bLogin != null) {
 
             bLogin.setOnClickListener(new View.OnClickListener(){
