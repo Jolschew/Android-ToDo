@@ -16,17 +16,15 @@
         android:text="Medium Text"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="222dp"
-        android:layout_marginEnd="222dp"
-        android:layout_marginTop="144dp" />
+        android:layout_marginTop="144dp"
+        android:layout_toLeftOf="@+id/bOverviewAdd"
+        android:layout_toStartOf="@+id/bOverviewAdd" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Neu"
-        android:id="@+id/bAddTodo"
+        android:id="@+id/bOverviewAdd"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

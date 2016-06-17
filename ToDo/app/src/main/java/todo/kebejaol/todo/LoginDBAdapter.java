@@ -17,7 +17,7 @@ public class LoginDBAdapter {
     static final int NAME_COLUMN = 1;
 
     //Database Creation Statement
-    public static final String DB_CREATE = "create table "+ "LOGIN"+ "( " +"ID"+" integer primary key autoincrement,"+ "EMAIL  text,PASSWORD text); ";
+    public static final String DB_CREATE_LOGIN = "create table "+ "LOGIN"+ "( " +"ID"+" integer primary key autoincrement,"+ "EMAIL  text,PASSWORD text); ";
 
     //instance of database
     public SQLiteDatabase db;

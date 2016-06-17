@@ -19,25 +19,25 @@ public class Overview extends AppCompatActivity {
 
     private GoogleApiClient client;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
-        final Button bAddTodo = (Button) findViewById(R.id.bAddTodo);
+        final Button bOverviewAdd = (Button) findViewById(R.id.bOverviewAdd);
 
-        if ( bAddTodo != null) {
+        if ( bOverviewAdd != null) {
 
-            bAddTodo.setOnClickListener(new View.OnClickListener() {
+            bOverviewAdd.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View view){
 
-                    // change activity to login or overview
+                    // change activity to addTodo
                     Intent addTodoIntent = new Intent(Overview.this, AddTodo.class);
                     Overview.this.startActivity(addTodoIntent);
-
-
 
                 }
             });

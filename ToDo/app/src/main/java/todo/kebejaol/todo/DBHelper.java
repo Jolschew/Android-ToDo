@@ -3,6 +3,7 @@ package todo.kebejaol.todo;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.Settings;
 
 /**
  * Created by Jan on 25.04.16.
@@ -15,6 +16,7 @@ public class DBHelper extends SQLiteOpenHelper
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {
         super(context, name, factory, version);
+
     }
 
 
@@ -22,8 +24,10 @@ public class DBHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase)
     {
-        // call Constant-String "DBCREATE" from LoginDBAdapter
-        sqLiteDatabase.execSQL(LoginDBAdapter.DB_CREATE);
+        System.out.println("ON CREATEDBHelper");
+        // call Constant-String "DBCREATE" from LoginDBAdapter and TodoDBAdapter
+        sqLiteDatabase.execSQL(LoginDBAdapter.DB_CREATE_LOGIN);
+        sqLiteDatabase.execSQL(TodoDBAdapter.DB_CREATE_TODO);
     }
 
 

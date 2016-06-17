@@ -4,21 +4,22 @@
     android:padding="50dp"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ToDo hinzufügen"
-        android:id="@+id/tvHeading"
+        android:id="@+id/tvAddHeading"
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etName"
+        android:id="@+id/etAddName"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:hint="Name" />
@@ -26,7 +27,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etDescription"
+        android:id="@+id/etAddDescription"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:hint="Beschreibung" />
@@ -36,7 +37,7 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/etExpirationDate"
+        android:id="@+id/etAddExpirationDate"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
         android:hint="Ablaufdatum" />
@@ -67,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ToDo anlegen"
-            android:id="@+id/bAdd"
+            android:id="@+id/bAddTodo"
             android:background="#01DF3A"
             android:layout_marginRight="10sp" />
 
@@ -77,12 +78,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Abbrechen"
-            android:id="@+id/bCancel"
+            android:id="@+id/bAddCancel"
             android:background="#FE2E2E"
             android:layout_marginLeft="10sp" />
     </LinearLayout>
-
-
 
 
 </LinearLayout>
