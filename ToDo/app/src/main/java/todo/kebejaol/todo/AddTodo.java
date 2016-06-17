@@ -22,7 +22,12 @@ public class AddTodo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_todo);
 
-        final TextView etExample = (TextView) findViewById(R.id.example);
+        final TextView tvHeading = (TextView) findViewById(R.id.tvHeading);
+        final TextView tvHeading = (TextView) findViewById(R.id.et);
+        final TextView tvHeading = (TextView) findViewById(R.id.tvHeading);
+        final TextView tvHeading = (TextView) findViewById(R.id.tvHeading);
+
+
 
     }
 

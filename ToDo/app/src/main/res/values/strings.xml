@@ -1,5 +1,5 @@
 <resources>
-<string name="app_name">Android-Do</string>
+<string name="app_name">Android-Do - Just do ToDo</string>
 
 <string name="login_error">Logindaten nicht gültig</string>
 <string name="login_success">Erfolgreich eingeloggt</string>
