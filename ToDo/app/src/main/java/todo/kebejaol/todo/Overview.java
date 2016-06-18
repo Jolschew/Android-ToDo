@@ -12,14 +12,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import android.os.Bundle;
+import android.app.ListActivity;
+
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Overview extends AppCompatActivity {
 
     private GoogleApiClient client;
+
 
 
 
@@ -30,22 +40,15 @@ public class Overview extends AppCompatActivity {
         setContentView(R.layout.activity_overview);
 
         final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(this).open();
-
         final ListView lvOverview = (ListView) findViewById(R.id.lvOverview);
+
         final Button bOverviewAdd = (Button) findViewById(R.id.bOverviewAdd);
 
-
-
-        String todos[] = todoDBAdapter.getEntries();//new String[]{"hase", "wurst", "kuchen", "schmierkäse"};
-
-
-        for(String c: todos){
-            System.out.println(c);
-        }
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, todos);
+        ArrayList<String[]> todos = todoDBAdapter.getEntries();
+        MyAdapter adapter = new MyAdapter(this, generateData(todos));
         lvOverview.setAdapter(adapter);
+
+
 
         if ( bOverviewAdd != null) {
 
@@ -107,4 +110,18 @@ public class Overview extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
+
+
+    private ArrayList<Item> generateData(ArrayList<String[]> todos) {
+        ArrayList<Item> items = new ArrayList<Item>();
+        for (String[] c : todos) {
+            // add Items (1=Name, 3= Expiration_Date)  to Listview
+            items.add(new Item(c[1], c[3]));
+        }
+
+
+        return items;
+    }
+
+
 }

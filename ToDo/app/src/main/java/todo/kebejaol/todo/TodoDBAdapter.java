@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Created by Jan on 17.06.16.
@@ -19,7 +20,10 @@ public class TodoDBAdapter {
     static final int NAME_COLUMN = 1;
 
     //Database Creation Statement
-    public static final String DB_CREATE_TODO = "CREATE TABLE IF NOT EXISTS "+ "TODO"+ "( " +"ID"+" integer primary key autoincrement,"+ "NAME  text,DESCRIPTION text); ";
+    public static final String DB_CREATE_TODO = "CREATE TABLE IF NOT EXISTS " + "TODO" + "( " + "ID" + " integer primary key autoincrement," + "NAME  text,DESCRIPTION text, EXPIRATION_DATE text); ";
+
+    //TODO Delete this constant, if not nescessary anymore
+    public static final String DB_DROP_TABLE = "DROP TABLE todo";
 
     //instance of database
     public SQLiteDatabase db;
@@ -36,6 +40,10 @@ public class TodoDBAdapter {
     public TodoDBAdapter open() throws SQLException
     {
         db = dbHelper.getWritableDatabase();
+        //TODO Remove Drop Table
+        // db.execSQL(DB_DROP_TABLE);
+
+        //Create  Table Todo
         db.execSQL(DB_CREATE_TODO);
         return this;
     }
@@ -50,12 +58,13 @@ public class TodoDBAdapter {
     }
 
     // CREATE
-    public void insertEntry(String name, String description)
+    public void insertEntry(String name, String description, String expiration_date)
     {
         ContentValues todoValues = new ContentValues();
         // Assign Values to DB
         todoValues.put("NAME", name);
         todoValues.put("DESCRIPTION", description);
+        todoValues.put("EXPIRATION_DATE", expiration_date);
 
         //Insert row in table
         db.insert("TODO", null, todoValues);
@@ -63,24 +72,23 @@ public class TodoDBAdapter {
 
     // READ
     // TODO userspezifisch WHERE
-    public String[] getEntries ()
+    public ArrayList<String[]> getEntries()
     {
-       // Cursor cursor = db.query("TODO", null, "NAME=?", new String[]{name}, null, null, null);
         Cursor cursor = db.rawQuery("SELECT * FROM TODO", null);
-      //  Cursor cursor = db.query("", new String[] {"ID", "NAME", "DESCRIPTION"}, "", null, null, null, null);
         cursor.moveToFirst();
-
-        ArrayList<String> names = new ArrayList<String>();
 
         ArrayList<String[]> todos = new ArrayList<String[]>();
 
         while(!cursor.isAfterLast()) {
-            names.add(cursor.getString(cursor.getColumnIndex("NAME")));
+
 
             String tmpTodo[] = new String[]{
                     cursor.getString(cursor.getColumnIndex("ID")),
                     cursor.getString(cursor.getColumnIndex("NAME")),
-                    //cursor.getString(cursor.getColumnIndex("DESCRIPTION")) TODO description funktioniert nicht
+                    cursor.getString(cursor.getColumnIndex("DESCRIPTION")),
+                    cursor.getString(cursor.getColumnIndex("EXPIRATION_DATE")),
+                    //  cursor.getString(cursor.getColumnIndex("IS_FAVOURITE")), // TODO not implemented yet
+
             };
 
             todos.add(tmpTodo);
@@ -97,7 +105,7 @@ public class TodoDBAdapter {
         cursor.close();
 
 
-        return todos.toArray(new String[todos.size()]);
+        return todos;//.toArray(new String[todos.size()]);
 
 
 
@@ -115,11 +123,12 @@ public class TodoDBAdapter {
 
 
     // UPDATE
-    public void updateEntry(String name, String description)
+    public void updateEntry(String name, String description, String expirationDate)
     {
         ContentValues updatedValues = new ContentValues();
         updatedValues.put("NAME", name);
-        updatedValues.put("Description", description);
+        updatedValues.put("DESCRIPTION", description);
+        updatedValues.put("EXPIRATION_DATE", expirationDate);
 
         String todo = "NAME=?";
         db.update("TODO", updatedValues, todo, new String[]{name});

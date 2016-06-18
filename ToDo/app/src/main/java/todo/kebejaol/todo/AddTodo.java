@@ -58,12 +58,13 @@ public class AddTodo extends AppCompatActivity {
 
                     String name = etAddName.getText().toString();
                     String description = etAddDescription.getText().toString();
+                    String expirationDate = etAddExpirationDate.getText().toString();
 
 
 
                     // write user data in db
                     // TODO error handling
-                    todoDBAdapter.insertEntry(name, description);
+                    todoDBAdapter.insertEntry(name, description, expirationDate);
 
                     Toast toast = Toast.makeText(getApplicationContext(), R.string.registration_info_successful_registration, Toast.LENGTH_LONG);
                     toast.show();
