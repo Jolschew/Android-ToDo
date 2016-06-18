@@ -5,8 +5,10 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +29,23 @@ public class Overview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
+        final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(this).open();
+
+        final ListView lvOverview = (ListView) findViewById(R.id.lvOverview);
         final Button bOverviewAdd = (Button) findViewById(R.id.bOverviewAdd);
+
+
+
+        String todos[] = todoDBAdapter.getEntries();//new String[]{"hase", "wurst", "kuchen", "schmierkäse"};
+
+
+        for(String c: todos){
+            System.out.println(c);
+        }
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, todos);
+        lvOverview.setAdapter(adapter);
 
         if ( bOverviewAdd != null) {
 

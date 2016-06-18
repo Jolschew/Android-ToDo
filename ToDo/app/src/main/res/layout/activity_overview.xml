@@ -9,17 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="todo.kebejaol.todo.Overview">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="144dp"
-        android:layout_toLeftOf="@+id/bOverviewAdd"
-        android:layout_toStartOf="@+id/bOverviewAdd" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,4 +19,12 @@
         android:layout_alignParentEnd="true"
         android:background="#01DF3A"
         android:clickable="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvOverview"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
