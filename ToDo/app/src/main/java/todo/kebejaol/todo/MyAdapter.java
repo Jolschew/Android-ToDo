@@ -7,6 +7,7 @@ package todo.kebejaol.todo;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,4 +64,14 @@ public class MyAdapter extends ArrayAdapter<Item> {
         // 5. return rowView
         return rowView;
     }
+
+    //TODO MAke this Work
+//    public void onClick(View v) {
+//
+//        System.out.println("VIEW");
+//       //  Intent addTodoIntent = new Intent(MyAdapter.this, AddTodo.class);
+//       //  Overview.this.startActivity(addTodoIntent);
+//    }
+    }
+
 }

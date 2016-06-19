@@ -10,5 +10,7 @@
 <string name="registration_error_password_equals">Passwörter stimmen nicht überein</string>
 
 <string name="registration_info_successful_registration">Erfolgreich registriert</string>
+<string name="addTodo_info_successful_registration">ToDo erfolgreich hinzugefügt</string>
+<string name="ChangeTodoIsFavourit_info_successful_registration">Favorit geändert!</string>
 
 </resources>

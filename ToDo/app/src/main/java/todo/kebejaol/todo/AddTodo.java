@@ -131,7 +131,7 @@ public class AddTodo extends AppCompatActivity {
                     // TODO error handling
                     todoDBAdapter.insertEntry(name, description, expirationDate, isFavourite);
 
-                    Toast toast = Toast.makeText(getApplicationContext(), R.string.registration_info_successful_registration, Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getApplicationContext(), R.string.addTodo_info_successful_registration, Toast.LENGTH_LONG);
                     toast.show();
 
                     // change activity to login or overview

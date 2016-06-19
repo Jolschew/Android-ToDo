@@ -1,12 +1,16 @@
 package todo.kebejaol.todo;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,6 +46,7 @@ public class Overview extends AppCompatActivity {
         final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(this).open();
         final ListView lvOverview = (ListView) findViewById(R.id.lvOverview);
 
+
         final Button bOverviewAdd = (Button) findViewById(R.id.bOverviewAdd);
 
         //standard sort
@@ -68,6 +73,27 @@ public class Overview extends AppCompatActivity {
                 }
             });
         }
+
+        if( lvOverview != null){
+            System.out.println("WURST");
+            lvOverview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    CheckBox cbIsFavorite = (CheckBox)view.findViewById(R.id.cbIsFavourite);
+                    CheckBox cbIsFinished = (CheckBox)view.findViewById(R.id.cbIsFinished);
+                    System.out.println("WURST");
+
+                    Toast toast = Toast.makeText(getApplicationContext(), R.string.addTodo_info_successful_registration, Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            });
+        }
+
+
+
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.

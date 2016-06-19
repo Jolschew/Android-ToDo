@@ -39,10 +39,11 @@
         android:layout_height="wrap_content"
         android:text="Favorit"
         android:id="@+id/cbIsFavourite"
-        android:layout_below="@+id/bDetail"
-        android:layout_alignRight="@+id/bDetail"
-        android:layout_alignEnd="@+id/bDetail"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_alignTop="@+id/cbIsFinished"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -50,26 +51,9 @@
         android:text="Erledigt"
         android:id="@+id/cbIsFinished"
         android:checked="false"
-        android:layout_below="@+id/bDetail"
+        android:layout_below="@+id/name"
         android:layout_toLeftOf="@+id/cbIsFavourite"
         android:layout_toStartOf="@+id/cbIsFavourite"
         android:textColor="@color/colorPrimaryDark" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Details"
-        android:id="@+id/bDetail"
-        android:textSize="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignBottom="@+id/name"
-        android:padding="3dp"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="#FFFFFF" />
 
 </RelativeLayout>
