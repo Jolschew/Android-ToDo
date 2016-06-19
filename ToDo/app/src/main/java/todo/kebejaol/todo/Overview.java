@@ -44,7 +44,12 @@ public class Overview extends AppCompatActivity {
 
         final Button bOverviewAdd = (Button) findViewById(R.id.bOverviewAdd);
 
-        ArrayList<String[]> todos = todoDBAdapter.getEntries();
+        //standard sort
+        ArrayList<String[]> todos = todoDBAdapter.getEntriesByDate();
+
+        //Todo impleent favourite sortig here!
+        //ArrayList<String[]> todos = todoDBAdapter.getEntriesByFavourite();
+
         MyAdapter adapter = new MyAdapter(this, generateData(todos));
         lvOverview.setAdapter(adapter);
 
@@ -115,8 +120,8 @@ public class Overview extends AppCompatActivity {
     private ArrayList<Item> generateData(ArrayList<String[]> todos) {
         ArrayList<Item> items = new ArrayList<Item>();
         for (String[] c : todos) {
-            // add Items (1=Name, 3= Expiration_Date)  to Listview
-            items.add(new Item(c[1], c[3]));
+            // add Items (1=Name, 3= Expiration_Date, 4= Favorit, 5=is_finished)  to Listview
+            items.add(new Item(c[1], c[3], c[4],c[5]));
         }
 
 

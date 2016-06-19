@@ -22,7 +22,8 @@
         android:id="@+id/etAddName"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="20dp"
-        android:hint="Name" />
+        android:hint="Name"
+        android:maxLength="15" />
 
     <EditText
         android:layout_width="match_parent"

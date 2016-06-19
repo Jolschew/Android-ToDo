@@ -9,11 +9,14 @@ public class Item {
     private String description;
     private String expirationDate;
     private String isFavourite;
+    private String isFinished;
 
-    public Item(String name, String expirationDate) {
+    public Item(String name, String expirationDate, String isFavourite,  String isFinished) {
         super();
         this.todoName = name;
         this.expirationDate = expirationDate;
+        this.isFavourite = isFavourite;
+        this.isFinished = isFinished;
     }
 
     public String getTodoName() {
@@ -56,5 +59,13 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getIsFinished() {
+        return isFinished;
+    }
+
+    public void setIsFinished(String isFinished) {
+        this.isFinished = isFinished;
     }
 }

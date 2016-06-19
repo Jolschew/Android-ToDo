@@ -20,7 +20,7 @@ public class TodoDBAdapter {
     static final int NAME_COLUMN = 1;
 
     //Database Creation Statement
-    public static final String DB_CREATE_TODO = "CREATE TABLE IF NOT EXISTS " + "TODO" + "( " + "ID" + " integer primary key autoincrement," + "NAME  text,DESCRIPTION text, EXPIRATION_DATE text); ";
+    public static final String DB_CREATE_TODO = "CREATE TABLE IF NOT EXISTS " + "todo" + "( " + "id" + " integer primary key autoincrement," + "name  text,description text, expiration_date date, is_favourite text, is_finished text); ";
 
     //TODO Delete this constant, if not nescessary anymore
     public static final String DB_DROP_TABLE = "DROP TABLE todo";
@@ -41,7 +41,7 @@ public class TodoDBAdapter {
     {
         db = dbHelper.getWritableDatabase();
         //TODO Remove Drop Table
-        // db.execSQL(DB_DROP_TABLE);
+      //   db.execSQL(DB_DROP_TABLE);
 
         //Create  Table Todo
         db.execSQL(DB_CREATE_TODO);
@@ -58,23 +58,25 @@ public class TodoDBAdapter {
     }
 
     // CREATE
-    public void insertEntry(String name, String description, String expiration_date)
+    public void insertEntry(String name, String description, String expiration_date, String isFavourite)
     {
         ContentValues todoValues = new ContentValues();
         // Assign Values to DB
-        todoValues.put("NAME", name);
-        todoValues.put("DESCRIPTION", description);
-        todoValues.put("EXPIRATION_DATE", expiration_date);
+        todoValues.put("name", name);
+        todoValues.put("description", description);
+        todoValues.put("expiration_date", expiration_date);
+        todoValues.put("is_favourite", isFavourite);
+        todoValues.put("is_finished", "0");
 
         //Insert row in table
-        db.insert("TODO", null, todoValues);
+        db.insert("todo", null, todoValues);
     }
 
     // READ
     // TODO userspezifisch WHERE
-    public ArrayList<String[]> getEntries()
+    public ArrayList<String[]> getEntriesByDate()
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM TODO", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM todo ORDER BY expiration_date ASC", null);
         cursor.moveToFirst();
 
         ArrayList<String[]> todos = new ArrayList<String[]>();
@@ -83,21 +85,16 @@ public class TodoDBAdapter {
 
 
             String tmpTodo[] = new String[]{
-                    cursor.getString(cursor.getColumnIndex("ID")),
-                    cursor.getString(cursor.getColumnIndex("NAME")),
-                    cursor.getString(cursor.getColumnIndex("DESCRIPTION")),
-                    cursor.getString(cursor.getColumnIndex("EXPIRATION_DATE")),
-                    //  cursor.getString(cursor.getColumnIndex("IS_FAVOURITE")), // TODO not implemented yet
+                    cursor.getString(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("name")),
+                    cursor.getString(cursor.getColumnIndex("description")),
+                    cursor.getString(cursor.getColumnIndex("expiration_date")),
+                    cursor.getString(cursor.getColumnIndex("is_favourite")),
+                    cursor.getString(cursor.getColumnIndex("is_finished")),
 
             };
 
             todos.add(tmpTodo);
-
-            // tmpTodo Ausgabe, (funktioniert bereits korrekt)
-            // TODO in Overview.java das return korrekt behandeln
-            for(String c: tmpTodo){
-                System.out.println(c);
-            }
 
             cursor.moveToNext();
         }
@@ -105,41 +102,92 @@ public class TodoDBAdapter {
         cursor.close();
 
 
-        return todos;//.toArray(new String[todos.size()]);
+        return todos;
+    }
+
+    public ArrayList<String[]> getEntriesByIsFinished()
+    {
+        Cursor cursor = db.rawQuery("SELECT * FROM todo ORDER BY expiration_date ASC", null);   //TODO Order by is finished
+        cursor.moveToFirst();
+
+        ArrayList<String[]> todos = new ArrayList<String[]>();
+
+        while(!cursor.isAfterLast()) {
 
 
+            String tmpTodo[] = new String[]{
+                    cursor.getString(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("name")),
+                    cursor.getString(cursor.getColumnIndex("description")),
+                    cursor.getString(cursor.getColumnIndex("expiration_date")),
+                    cursor.getString(cursor.getColumnIndex("is_favourite")),
+                    cursor.getString(cursor.getColumnIndex("is_finished")),
 
-        //If User does not exist
-       // if (cursor.getCount() == 1)
-       // {
-          //  cursor.close();
-         //   return "Dieser Nutzer existiert nicht!";
-        //}
-       // cursor.moveToFirst();
-       // String password = cursor.getString(cursor.getColumnIndex("DESCRIPTION"));
-      //  cursor.close();
-    //    return password;
+            };
+
+            todos.add(tmpTodo);
+
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+
+        return todos;
+    }
+
+    public ArrayList<String[]> getEntriesByFavourite()
+    {
+        Cursor cursor = db.rawQuery("SELECT * FROM todo", null);
+        cursor.moveToFirst();
+
+        ArrayList<String[]> todos = new ArrayList<String[]>();
+
+        while(!cursor.isAfterLast()) {
+
+
+            String tmpTodo[] = new String[]{
+                    cursor.getString(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("name")),
+                    cursor.getString(cursor.getColumnIndex("description")),
+                    cursor.getString(cursor.getColumnIndex("expiration_date")),
+                    cursor.getString(cursor.getColumnIndex("is_favourite")),
+                    cursor.getString(cursor.getColumnIndex("is_finished")),
+
+            };
+
+            todos.add(tmpTodo);
+
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+
+        return todos;
     }
 
 
     // UPDATE
-    public void updateEntry(String name, String description, String expirationDate)
+    public void updateEntry(String name, String description, String expirationDate, String isFavourite, String isFinished)
     {
         ContentValues updatedValues = new ContentValues();
-        updatedValues.put("NAME", name);
-        updatedValues.put("DESCRIPTION", description);
-        updatedValues.put("EXPIRATION_DATE", expirationDate);
+        updatedValues.put("name", name);
+        updatedValues.put("description", description);
+        updatedValues.put("expiration_date", expirationDate);
+        updatedValues.put("is_favourite", isFavourite);
+        updatedValues.put("is_finished", isFinished);
 
-        String todo = "NAME=?";
-        db.update("TODO", updatedValues, todo, new String[]{name});
+        String todo = "name=?";
+        db.update("todo", updatedValues, todo, new String[]{name});
 
     }
 
     // DELETE
     public int deleteEntry(String name)
     {
-        String todo = "NAME=?";
-        int numberofEntriesDeleted = db.delete("TODO", todo, new String[]{name});
+        String todo = "name=?";
+        int numberofEntriesDeleted = db.delete("todo", todo, new String[]{name});
         return numberofEntriesDeleted;
     }
 
