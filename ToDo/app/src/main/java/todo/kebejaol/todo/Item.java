@@ -11,8 +11,9 @@ public class Item {
     private String isFavourite;
     private String isFinished;
 
-    public Item(String name, String expirationDate, String isFavourite,  String isFinished) {
+    public Item(String id, String name, String expirationDate, String isFavourite,  String isFinished) {
         super();
+        this.id = id;
         this.todoName = name;
         this.expirationDate = expirationDate;
         this.isFavourite = isFavourite;

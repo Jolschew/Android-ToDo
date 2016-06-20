@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:onClick="ItemClickHandler">
 
     <TextView
         android:id="@+id/name"
@@ -24,16 +25,7 @@
         android:layout_alignBottom="@+id/cbIsFinished"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <!--<TextView
-        android:id="@+id/isFavourite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:paddingLeft="255dp"
-        android:textColor="@color/colorPrimarySuperDark"
-        android:text="1"
-       android:layout_below="@+id/name" />
--->
+
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +35,8 @@
         android:layout_alignTop="@+id/cbIsFinished"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="20dp" />
+        android:layout_marginRight="20dp"
+        android:textSize="9dp" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -54,6 +47,19 @@
         android:layout_below="@+id/name"
         android:layout_toLeftOf="@+id/cbIsFavourite"
         android:layout_toStartOf="@+id/cbIsFavourite"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="9dp"
+        android:layout_marginRight="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="id"
+        android:id="@+id/id"
+        android:layout_above="@+id/expirationDate"
+        android:layout_alignRight="@+id/cbIsFavourite"
+        android:layout_alignEnd="@+id/cbIsFavourite"
+        android:visibility="invisible" />
 
 </RelativeLayout>

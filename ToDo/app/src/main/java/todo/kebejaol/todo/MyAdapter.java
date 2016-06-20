@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,8 @@ public class MyAdapter extends ArrayAdapter<Item> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, final View convertView, ViewGroup parent) {
+
 
         // 1. Create inflater
         LayoutInflater inflater = (LayoutInflater) context
@@ -41,13 +43,16 @@ public class MyAdapter extends ArrayAdapter<Item> {
         // 3. Get the two text view from the rowView
         TextView nameView = (TextView) rowView.findViewById(R.id.name);
         TextView expirationView = (TextView) rowView.findViewById(R.id.expirationDate);
-        CheckBox isFavouriteView = (CheckBox) rowView.findViewById(R.id.cbIsFavourite);
+        TextView idView = (TextView) rowView.findViewById(R.id.id);
+
+        final CheckBox isFavouriteView = (CheckBox) rowView.findViewById(R.id.cbIsFavourite);
         CheckBox isFinishedView = (CheckBox) rowView.findViewById(R.id.cbIsFinished);
 
 
         // 4. Set the text for textView
         nameView.setText(itemsArrayList.get(position).getTodoName());
         expirationView.setText(itemsArrayList.get(position).getExpirationDate());
+        idView.setText(itemsArrayList.get(position).getId());
         if(itemsArrayList.get(position).getIsFavourite().equals("1"))
         {
 
@@ -61,17 +66,30 @@ public class MyAdapter extends ArrayAdapter<Item> {
 
 
 
+
+        // On Item-Click got to Detail View
+       rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // System.out.println(itemsArrayList.get(position).getId());
+                String id = itemsArrayList.get(position).getId();
+
+                Intent detailTodoIntent = new Intent(context,DetailTodo.class);
+                // Send ID with Intent to DetailTodo
+                detailTodoIntent.putExtra("id",id);
+                context.startActivity(detailTodoIntent);
+            }
+        });
+
+
+
+
+
         // 5. return rowView
         return rowView;
     }
 
-    //TODO MAke this Work
-//    public void onClick(View v) {
-//
-//        System.out.println("VIEW");
-//       //  Intent addTodoIntent = new Intent(MyAdapter.this, AddTodo.class);
-//       //  Overview.this.startActivity(addTodoIntent);
-//    }
-    }
+
+
 
 }

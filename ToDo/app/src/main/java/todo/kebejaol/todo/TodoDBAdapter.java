@@ -169,7 +169,7 @@ public class TodoDBAdapter {
 
 
     // UPDATE
-    public void updateEntry(String name, String description, String expirationDate, String isFavourite, String isFinished)
+    public void updateEntry(String id, String name, String description, String expirationDate, String isFavourite, String isFinished)
     {
         ContentValues updatedValues = new ContentValues();
         updatedValues.put("name", name);
@@ -178,17 +178,46 @@ public class TodoDBAdapter {
         updatedValues.put("is_favourite", isFavourite);
         updatedValues.put("is_finished", isFinished);
 
-        String todo = "name=?";
-        db.update("todo", updatedValues, todo, new String[]{name});
+        String user = "id=?";
+        db.update("todo", updatedValues, user, new String[]{id});
 
     }
 
     // DELETE
-    public int deleteEntry(String name)
+    public int deleteEntry(String id)
     {
-        String todo = "name=?";
-        int numberofEntriesDeleted = db.delete("todo", todo, new String[]{name});
+        String todo = "id=?";
+        int numberofEntriesDeleted = db.delete("todo", todo, new String[]{id});
         return numberofEntriesDeleted;
     }
 
+    public void updateIsFavourite(String id, String isFavourite)
+    {
+        db.rawQuery("UPDATE todo SET is_favourite = "+isFavourite+" WHERE name = "+ id, null);
+    }
+
+    public void updateIsFinished(String id, String isFinished) {
+        db.rawQuery("UPDATE todo SET is_finished = "+isFinished+" WHERE id = "+ id, null);
+    }
+
+    /**
+     *
+     * @param id
+     * @return To-do Array {id, name, description, expiration_date, is_favourite, is_finished}
+     */
+    public String[] getEntry(String id)
+    {
+        Cursor cursor = db.rawQuery("SELECT * FROM todo WHERE id = "+ id, null);
+        cursor.moveToFirst();
+
+        String todo[] = null;
+
+        if (cursor != null)
+        {
+            todo = new String[]{cursor.getString(0), cursor.getString(1), cursor.getString(2),
+                   cursor.getString(3), cursor.getString(4), cursor.getString(5)};
+        }
+        System.out.println(todo[1]);
+        return todo;
+    }
 }

@@ -34,23 +34,23 @@ public class Overview extends AppCompatActivity {
 
     private GoogleApiClient client;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
-        final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(this).open();
         final ListView lvOverview = (ListView) findViewById(R.id.lvOverview);
 
 
         final Button bOverviewAdd = (Button) findViewById(R.id.bOverviewAdd);
 
+
+        final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(this).open();
         //standard sort
         ArrayList<String[]> todos = todoDBAdapter.getEntriesByDate();
+        //Close Database Cursor
+        todoDBAdapter.close();
 
         //Todo impleent favourite sortig here!
         //ArrayList<String[]> todos = todoDBAdapter.getEntriesByFavourite();
@@ -74,23 +74,22 @@ public class Overview extends AppCompatActivity {
             });
         }
 
-        if( lvOverview != null){
-            System.out.println("WURST");
-            lvOverview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    CheckBox cbIsFavorite = (CheckBox)view.findViewById(R.id.cbIsFavourite);
-                    CheckBox cbIsFinished = (CheckBox)view.findViewById(R.id.cbIsFinished);
-                    System.out.println("WURST");
-
-                    Toast toast = Toast.makeText(getApplicationContext(), R.string.addTodo_info_successful_registration, Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            });
-        }
+//        if( lvOverview != null){
+//            System.out.println("WURST");
+//
+//            lvOverview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                    CheckBox cbIsFavorite = (CheckBox)view.findViewById(R.id.cbIsFavourite);
+//                    CheckBox cbIsFinished = (CheckBox)view.findViewById(R.id.cbIsFinished);
+//                    Toast toast = Toast.makeText(getApplicationContext(), R.string.addTodo_info_successful_registration, Toast.LENGTH_LONG);
+//                    toast.show();
+//                }
+//            });
+//        }
 
 
 
@@ -147,12 +146,13 @@ public class Overview extends AppCompatActivity {
         ArrayList<Item> items = new ArrayList<Item>();
         for (String[] c : todos) {
             // add Items (1=Name, 3= Expiration_Date, 4= Favorit, 5=is_finished)  to Listview
-            items.add(new Item(c[1], c[3], c[4],c[5]));
+            items.add(new Item(c[0], c[1], c[3], c[4],c[5]));
         }
 
 
         return items;
     }
+
 
 
 }

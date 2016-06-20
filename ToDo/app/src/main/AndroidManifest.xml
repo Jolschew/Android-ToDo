@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
-        <activity android:name=".Overview"></activity>
-        <activity android:name=".AddTodo"></activity>
+        <activity android:name=".Overview" />
+        <activity android:name=".AddTodo" />
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -27,7 +27,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-
+        <activity android:name=".DetailTodo"></activity>
     </application>
 
 </manifest>

@@ -141,7 +141,7 @@ public class AddTodo extends AppCompatActivity {
                 }// onClick
 
             }); // setOnclickListener
-        } // bRegister != null
+        } // bAddTodo != null
 
 
 
