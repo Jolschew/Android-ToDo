@@ -11,11 +11,12 @@
 
     <string name="registration_info_successful_registration">Erfolgreich registriert</string>
     <string name="addTodo_info_successful_add">ToDo erfolgreich hinzugefügt</string>
-    <string name="ChangeTodoIsFavourit_info_successful_change">Favorit geändert</string>
     <string name="DetailTodo_info_successful_change" >ToDo erfolgreich geändert</string>
     <string name="detailTodo_info_successful_delete">ToDo erfolgreich gelöscht</string>
     <string name="detailTodo_info_cancel_delete">ToDo nicht gelöscht</string>
     <string name="DetailTodo_info_cancel_change">ToDo nicht geändert</string>
     <string name="addTodo_info_cancel_add">ToDo nicht hinzugefügt</string>
+    <string name="Overview_info_favourite_change">Status: \"Favorit\" geändert</string>
+    <string name="Overview_info_finished_change">Status: \"Beendet\" geändert</string>
 
 </resources>

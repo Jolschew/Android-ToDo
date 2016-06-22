@@ -193,11 +193,20 @@ public class TodoDBAdapter {
 
     public void updateIsFavourite(String id, String isFavourite)
     {
-        db.rawQuery("UPDATE todo SET is_favourite = "+isFavourite+" WHERE name = "+ id, null);
+        ContentValues updatedValues = new ContentValues();
+        updatedValues.put("is_favourite", isFavourite);
+
+        String user = "id=?";
+        db.update("todo", updatedValues, user, new String[]{id});
+        System.out.println("Works");
     }
 
     public void updateIsFinished(String id, String isFinished) {
-        db.rawQuery("UPDATE todo SET is_finished = "+isFinished+" WHERE id = "+ id, null);
+        ContentValues updatedValues = new ContentValues();
+        updatedValues.put("is_finished", isFinished);
+
+        String user = "id=?";
+        db.update("todo", updatedValues, user, new String[]{id});
     }
 
     /**

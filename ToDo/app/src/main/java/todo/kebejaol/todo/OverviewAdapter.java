@@ -15,13 +15,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MyAdapter extends ArrayAdapter<Item> {
+public class OverviewAdapter extends ArrayAdapter<Item> {
 
     private final Context context;
     private final ArrayList<Item> itemsArrayList;
 
-    public MyAdapter(Context context, ArrayList<Item> itemsArrayList) {
+    public OverviewAdapter(Context context, ArrayList<Item> itemsArrayList) {
 
         super(context, R.layout.row, itemsArrayList);
 
@@ -32,6 +33,7 @@ public class MyAdapter extends ArrayAdapter<Item> {
     @Override
     public View getView(final int position, final View convertView, ViewGroup parent) {
 
+       // final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(context).open();
 
         // 1. Create inflater
         LayoutInflater inflater = (LayoutInflater) context
@@ -46,7 +48,7 @@ public class MyAdapter extends ArrayAdapter<Item> {
         TextView idView = (TextView) rowView.findViewById(R.id.id);
 
         final CheckBox isFavouriteView = (CheckBox) rowView.findViewById(R.id.cbIsFavourite);
-        CheckBox isFinishedView = (CheckBox) rowView.findViewById(R.id.cbIsFinished);
+        final CheckBox isFinishedView = (CheckBox) rowView.findViewById(R.id.cbIsFinished);
 
 
         // 4. Set the text for textView
@@ -81,6 +83,44 @@ public class MyAdapter extends ArrayAdapter<Item> {
             }
         });
 
+        //On Favourite Checkbox-Click change Favourite Status of Todo
+        isFavouriteView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(context).open();
+                String id = itemsArrayList.get(position).getId();
+                String isChecked = "0";
+                if(isFavouriteView.isChecked())
+                {
+                    isChecked = "1";
+                }
+                todoDBAdapter.updateIsFavourite(id, isChecked);
+                todoDBAdapter.close();
+                Toast toast = Toast.makeText(context, R.string.Overview_info_favourite_change, Toast.LENGTH_LONG);
+                toast.show();
+
+            }
+        });
+
+        isFinishedView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(context).open();
+                String id = itemsArrayList.get(position).getId();
+                String isChecked = "0";
+                if(isFinishedView.isChecked())
+                {
+                    isChecked = "1";
+                }
+                todoDBAdapter.updateIsFinished(id, isChecked);
+                todoDBAdapter.close();
+                Toast toast = Toast.makeText(context, R.string.Overview_info_finished_change, Toast.LENGTH_LONG);
+                toast.show();
+
+            }
+        });
 
 
 
