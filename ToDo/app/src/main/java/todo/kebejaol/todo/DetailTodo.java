@@ -1,6 +1,8 @@
 package todo.kebejaol.todo;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -115,19 +117,37 @@ public class DetailTodo extends AppCompatActivity {
         } // bAddCancel != 0
 
         if ( bDelete != null) {
-
             bDelete.setOnClickListener(new View.OnClickListener() {
 
                 //Button Click cancel
                 public void onClick(View view){
-                    // change activity to overview
-                    String id = detailIntent.getExtras().getString("id");
-                    todoDBAdapter.open();
-                    todoDBAdapter.deleteEntry(id);
-                    Toast toast = Toast.makeText(getApplicationContext(), R.string.detailTodo_info_successful_delete, Toast.LENGTH_LONG);
-                    toast.show();
-                    Intent overviewIntent = new Intent(DetailTodo.this, Overview.class);
-                    DetailTodo.this.startActivity(overviewIntent);
+
+                    // Show Alert Box and Ask if User want's to proceed
+                    new AlertDialog.Builder(DetailTodo.this)
+                            .setTitle("ToDo löschen")
+                            .setMessage("Wollen Sie den Todo wirklich löschen?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // change activity to overview
+                                    String id = detailIntent.getExtras().getString("id");
+                                    todoDBAdapter.open();
+                                    todoDBAdapter.deleteEntry(id);
+                                    Toast toast = Toast.makeText(getApplicationContext(), R.string.detailTodo_info_successful_delete, Toast.LENGTH_LONG);
+                                    toast.show();
+                                    Intent overviewIntent = new Intent(DetailTodo.this, Overview.class);
+                                    DetailTodo.this.startActivity(overviewIntent);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast toast = Toast.makeText(getApplicationContext(), R.string.detailTodo_info_cancel_delete, Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
+
                 }
             });
         } // bAddCancel != 0
@@ -139,32 +159,51 @@ public class DetailTodo extends AppCompatActivity {
 
                 //Button Click Bestätigen
                 public void onClick(View view){
-                    String id = detailIntent.getExtras().getString("id");
-                    String name = etName.getText().toString();
-                    String description = etDescription.getText().toString();
-                    String expirationDate = etExpirationDate.getText().toString();
-                    String isFavourite = "0";
-                    String isFinished = "0";
-                    if(cbIsFavourite.isChecked())
-                    {
-                        isFavourite = "1";
-                    }
-                    if(cbIsFinished.isChecked())
-                    {
-                        isFinished = "1";
-                    }
 
-                    // write user data in db
+                    // Show Alert Box and Ask if User want's to proceed
+                    new AlertDialog.Builder(DetailTodo.this)
+                            .setTitle("ToDo ändern")
+                            .setMessage("Wollen Sie den ToDo wirklich ändern?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String id = detailIntent.getExtras().getString("id");
+                                    String name = etName.getText().toString();
+                                    String description = etDescription.getText().toString();
+                                    String expirationDate = etExpirationDate.getText().toString();
+                                    String isFavourite = "0";
+                                    String isFinished = "0";
+                                    if(cbIsFavourite.isChecked())
+                                    {
+                                        isFavourite = "1";
+                                    }
+                                    if(cbIsFinished.isChecked())
+                                    {
+                                        isFinished = "1";
+                                    }
 
-                    todoDBAdapter.open();
-                    todoDBAdapter.updateEntry(id, name, description, expirationDate, isFavourite, isFinished);
+                                    // write user data in db
 
-                    Toast toast = Toast.makeText(getApplicationContext(), R.string.DetailTodo_info_successful_change, Toast.LENGTH_LONG);
-                    toast.show();
+                                    todoDBAdapter.open();
+                                    todoDBAdapter.updateEntry(id, name, description, expirationDate, isFavourite, isFinished);
+                                    todoDBAdapter.close();
+                                    Toast toast = Toast.makeText(getApplicationContext(), R.string.DetailTodo_info_successful_change, Toast.LENGTH_LONG);
+                                    toast.show();
 
-                    // change activity to login or overview
-                    Intent overviewIntent = new Intent(DetailTodo.this, Overview.class);
-                    DetailTodo.this.startActivity(overviewIntent);
+                                    // change activity to login or overview
+                                    Intent overviewIntent = new Intent(DetailTodo.this, Overview.class);
+                                    DetailTodo.this.startActivity(overviewIntent);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast toast = Toast.makeText(getApplicationContext(), R.string.DetailTodo_info_cancel_change, Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
+
 
                 }// onClick
 

@@ -1,7 +1,9 @@
 package todo.kebejaol.todo;
 
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,17 +12,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.OverScroller;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -114,29 +110,45 @@ public class AddTodo extends AppCompatActivity {
                 //Button Click Bestätigen
                 public void onClick(View view){
 
-                    String name = etAddName.getText().toString();
-                    String description = etAddDescription.getText().toString();
-                    String expirationDate = etAddExpirationDate.getText().toString();
-                    String isFavourite = "";
-                    if(cbIsFavourite.isChecked())
-                    {
-                        isFavourite = "1";
-                    }
-                    else
-                    {
-                        isFavourite= "0";
-                    }
+                    new AlertDialog.Builder(AddTodo.this)
+                            .setTitle("ToDo anlegen")
+                            .setMessage("Wollen Sie den ToDo wirklich anlegen?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String name = etAddName.getText().toString();
+                                    String description = etAddDescription.getText().toString();
+                                    String expirationDate = etAddExpirationDate.getText().toString();
+                                    String isFavourite = "";
+                                    if(cbIsFavourite.isChecked())
+                                    {
+                                        isFavourite = "1";
+                                    }
+                                    else
+                                    {
+                                        isFavourite= "0";
+                                    }
 
-                    // write user data in db
-                    // TODO error handling
-                    todoDBAdapter.insertEntry(name, description, expirationDate, isFavourite);
+                                    // write user data in db
+                                    // TODO error handling
+                                    todoDBAdapter.insertEntry(name, description, expirationDate, isFavourite);
 
-                    Toast toast = Toast.makeText(getApplicationContext(), R.string.addTodo_info_successful_registration, Toast.LENGTH_LONG);
-                    toast.show();
+                                    Toast toast = Toast.makeText(getApplicationContext(), R.string.addTodo_info_successful_add, Toast.LENGTH_LONG);
+                                    toast.show();
 
-                    // change activity to login or overview
-                    Intent overviewIntent = new Intent(AddTodo.this, Overview.class);
-                    AddTodo.this.startActivity(overviewIntent);
+                                    // change activity to login or overview
+                                    Intent overviewIntent = new Intent(AddTodo.this, Overview.class);
+                                    AddTodo.this.startActivity(overviewIntent);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast toast = Toast.makeText(getApplicationContext(), R.string.addTodo_info_cancel_add, Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
 
                 }// onClick
 

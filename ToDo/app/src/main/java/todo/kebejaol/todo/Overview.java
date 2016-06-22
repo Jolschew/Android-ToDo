@@ -1,5 +1,6 @@
 package todo.kebejaol.todo;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -73,25 +74,6 @@ public class Overview extends AppCompatActivity {
                 }
             });
         }
-
-//        if( lvOverview != null){
-//            System.out.println("WURST");
-//
-//            lvOverview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//
-//                @Override
-//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                    CheckBox cbIsFavorite = (CheckBox)view.findViewById(R.id.cbIsFavourite);
-//                    CheckBox cbIsFinished = (CheckBox)view.findViewById(R.id.cbIsFinished);
-//                    Toast toast = Toast.makeText(getApplicationContext(), R.string.addTodo_info_successful_registration, Toast.LENGTH_LONG);
-//                    toast.show();
-//                }
-//            });
-//        }
-
-
 
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
