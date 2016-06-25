@@ -1,5 +1,7 @@
 package todo.kebejaol.todo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,14 +29,34 @@ public class Overview extends AppCompatActivity {
         setContentView(R.layout.activity_overview);
 
         final ListView lvOverview = (ListView) findViewById(R.id.lvOverview);
-
-
         final Button bOverviewAdd = (Button) findViewById(R.id.bOverviewAdd);
-
+        final Button bSortList = (Button) findViewById(R.id.bSortList);
 
         final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(this).open();
+
+        //Get Sorting from Overview and sort by chosen Type
+        final Intent detailIntent = getIntent();
         //standard sort
         ArrayList<String[]> todos = todoDBAdapter.getEntriesByDate();
+        // Check if sorting-Key exists (Null-Pointer)
+        if(detailIntent.getExtras() != null){
+            if(detailIntent.getExtras().get("sorting").equals("date"))
+            {
+                todos = todoDBAdapter.getEntriesByDate();
+            }
+            else if(detailIntent.getExtras().get("sorting").equals("is_favourite"))
+            {
+                todos = todoDBAdapter.getEntriesByIsFavourite();
+            }
+            else
+            {
+                todos = todoDBAdapter.getEntriesByIsFinished();
+            }
+        }
+        else
+        {
+            todos = todoDBAdapter.getEntriesByIsFinished();
+        }
         //Close Database Cursor
         todoDBAdapter.close();
 
@@ -42,6 +65,9 @@ public class Overview extends AppCompatActivity {
 
         OverviewAdapter adapter = new OverviewAdapter(this, generateData(todos));
         lvOverview.setAdapter(adapter);
+
+        final AlertDialog chooseSorting ;
+        final CharSequence[] items = {"ist erledigt", "ist Favorit", "Datum"};
 
         if ( bOverviewAdd != null) {
 
@@ -55,6 +81,45 @@ public class Overview extends AppCompatActivity {
 
                 }
             });
+        }
+
+        if ( bSortList != null) {
+            bSortList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    new AlertDialog.Builder(Overview.this)
+                            .setTitle("ToDo löschen")
+                            .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int item) {
+                                    Intent detailTodoIntent = new Intent(Overview.this, Overview.class);
+                                    String sorting;
+                                    switch(item)
+                                    {
+                                        case 0:
+                                            sorting = "is_finished";
+                                            detailTodoIntent.putExtra("sorting",sorting);
+                                            Overview.this.startActivity(detailTodoIntent);
+                                            break;
+                                        case 1:
+                                            sorting = "is_favourite";
+                                            detailTodoIntent.putExtra("sorting",sorting);
+                                            Overview.this.startActivity(detailTodoIntent);
+                                            break;
+                                        case 2:
+                                            sorting = "date";
+                                            detailTodoIntent.putExtra("sorting",sorting);
+                                            Overview.this.startActivity(detailTodoIntent);
+                                            break;
+
+                                    }
+                                }
+                            })
+                            .show();
+
+                }
+            });
+
         }
 
 

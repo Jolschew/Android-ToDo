@@ -20,7 +20,7 @@ public class TodoDBAdapter {
     static final int NAME_COLUMN = 1;
 
     //Database Creation Statement
-    public static final String DB_CREATE_TODO = "CREATE TABLE IF NOT EXISTS " + "todo" + "( " + "id" + " integer primary key autoincrement," + "name  text,description text, expiration_date date, is_favourite text, is_finished text); ";
+    public static final String DB_CREATE_TODO = "CREATE TABLE IF NOT EXISTS " + "todo" + "( " + "id" + " integer primary key autoincrement," + "name  text,description text, expiration_date datetime, is_favourite text, is_finished text); ";
 
     //TODO Delete this constant, if not nescessary anymore
     public static final String DB_DROP_TABLE = "DROP TABLE todo";
@@ -41,7 +41,7 @@ public class TodoDBAdapter {
     {
         db = dbHelper.getWritableDatabase();
         //TODO Remove Drop Table
-      //   db.execSQL(DB_DROP_TABLE);
+        //db.execSQL(DB_DROP_TABLE);
 
         //Create  Table Todo
         db.execSQL(DB_CREATE_TODO);
@@ -82,8 +82,6 @@ public class TodoDBAdapter {
         ArrayList<String[]> todos = new ArrayList<String[]>();
 
         while(!cursor.isAfterLast()) {
-
-
             String tmpTodo[] = new String[]{
                     cursor.getString(cursor.getColumnIndex("id")),
                     cursor.getString(cursor.getColumnIndex("name")),
@@ -91,30 +89,22 @@ public class TodoDBAdapter {
                     cursor.getString(cursor.getColumnIndex("expiration_date")),
                     cursor.getString(cursor.getColumnIndex("is_favourite")),
                     cursor.getString(cursor.getColumnIndex("is_finished")),
-
             };
-
             todos.add(tmpTodo);
-
             cursor.moveToNext();
         }
-
         cursor.close();
-
-
         return todos;
     }
 
     public ArrayList<String[]> getEntriesByIsFinished()
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM todo ORDER BY expiration_date ASC", null);   //TODO Order by is finished
+        Cursor cursor = db.rawQuery("SELECT * FROM todo ORDER BY cast(is_finished as unsigned) DESC, expiration_date ASC", null);
         cursor.moveToFirst();
 
         ArrayList<String[]> todos = new ArrayList<String[]>();
 
         while(!cursor.isAfterLast()) {
-
-
             String tmpTodo[] = new String[]{
                     cursor.getString(cursor.getColumnIndex("id")),
                     cursor.getString(cursor.getColumnIndex("name")),
@@ -122,30 +112,22 @@ public class TodoDBAdapter {
                     cursor.getString(cursor.getColumnIndex("expiration_date")),
                     cursor.getString(cursor.getColumnIndex("is_favourite")),
                     cursor.getString(cursor.getColumnIndex("is_finished")),
-
             };
-
             todos.add(tmpTodo);
-
             cursor.moveToNext();
         }
-
         cursor.close();
-
-
         return todos;
     }
 
-    public ArrayList<String[]> getEntriesByFavourite()
+    public ArrayList<String[]> getEntriesByIsFavourite()
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM todo", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM todo ORDER BY cast(is_favourite as unsigned) DESC, expiration_date ASC", null);
         cursor.moveToFirst();
 
         ArrayList<String[]> todos = new ArrayList<String[]>();
 
         while(!cursor.isAfterLast()) {
-
-
             String tmpTodo[] = new String[]{
                     cursor.getString(cursor.getColumnIndex("id")),
                     cursor.getString(cursor.getColumnIndex("name")),
@@ -153,17 +135,11 @@ public class TodoDBAdapter {
                     cursor.getString(cursor.getColumnIndex("expiration_date")),
                     cursor.getString(cursor.getColumnIndex("is_favourite")),
                     cursor.getString(cursor.getColumnIndex("is_finished")),
-
             };
-
             todos.add(tmpTodo);
-
             cursor.moveToNext();
         }
-
         cursor.close();
-
-
         return todos;
     }
 
@@ -229,4 +205,32 @@ public class TodoDBAdapter {
         System.out.println(todo[1]);
         return todo;
     }
+
+    public String formatDateTimeToMysql(String date, String time)
+    {
+        String year, month, day, datetime;
+        day = date.substring(0,2);
+        month = date.substring(3,5);
+        year = date.substring(6);
+        datetime = year + "-" + month + "-" + day + " " + time;
+        return datetime;
+    }
+
+    public String getTimeFromMysql(String datetime)
+    {
+        String time = datetime.substring(11,16); //Cut Date and Seconds
+        return time;
+    }
+
+    public String getDateFromMysql(String datetime)
+    {
+        String year, month, day, date;
+        day = datetime.substring(8,10);
+        month = datetime.substring(5,7);
+        year = datetime.substring(0,4);
+        date = day + "." + month + "." + year;
+        return date;
+    }
+
+
 }

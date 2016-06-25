@@ -26,7 +26,9 @@
         android:id="@+id/bLogin"
         android:text="Login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryBright"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/tvRegister"

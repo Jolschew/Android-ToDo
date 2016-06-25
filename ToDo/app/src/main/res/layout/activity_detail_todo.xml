@@ -15,7 +15,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ToDo Detailansicht"
         android:id="@+id/tvAddHeading"
-        android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal" />
 
     <EditText
@@ -32,9 +31,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/etDetailDescription"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp"
         android:hint="Beschreibung"
-        android:lines="3" />
+        android:lines="2" />
 
     <EditText
         android:layout_width="match_parent"
@@ -43,14 +41,21 @@
         android:ems="10"
         android:id="@+id/etDetailExpirationDate"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp"
         android:hint="Ablaufdatum" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/etDetailExpirationTime"
+        android:layout_gravity="center_horizontal"
+        android:hint="Uhrzeit" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="wrap_content">
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -72,41 +77,42 @@
     </LinearLayout>
 
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ToDo ändern"
+        android:id="@+id/bChangeTodo"
+        android:background="@color/colorPrimaryBright"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textColor="#FFFFFF" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp">
 
         <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_weight=".70"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ToDo ändern"
-            android:id="@+id/bChangeTodo"
-            android:background="#01DF3A"
-            android:layout_marginRight="10sp" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_weight=".30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="28dp"
             android:text="Zurück"
             android:id="@+id/bChangeCancel"
-            android:layout_marginLeft="10sp"
-            android:background="#FE2E2E" />
-    </LinearLayout>
+            android:background="#AAAAAA"
+            android:textSize="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight=".5"
+            android:textColor="#FFFFFF" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TODO löschen"
-        android:id="@+id/bDelete"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:text="TODO löschen"
+            android:id="@+id/bDelete"
+            android:background="#DD0000"
+            android:padding="5dp"
+            android:textSize="10dp"
+            android:layout_weight=".5"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
 </LinearLayout>

@@ -18,7 +18,7 @@ public class Login extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final LoginDBAdapter loginDBAdapter = new LoginDBAdapter(this).open();
+        final LoginDBAdapter loginDBAdapter = new LoginDBAdapter(this);
 
         final EditText etEmail = (EditText) findViewById(R.id.etEmail);
         final EditText etPassword = (EditText) findViewById(R.id.etPasswort);
@@ -43,6 +43,7 @@ public class Login extends AppCompatActivity{
                     } else {
 
                         // get saved password from db by email
+                        loginDBAdapter.open();
                         String storedPassword = loginDBAdapter.getEntry(email);
 
                         if(storedPassword.equals(password)){

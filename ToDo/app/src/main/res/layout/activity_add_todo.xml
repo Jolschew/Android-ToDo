@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="50dp"
+    android:padding="30dp"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/etAddName"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:hint="Name"
         android:maxLength="20" />
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/etAddDescription"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:hint="Beschreibung" />
 
     <EditText
@@ -40,18 +40,27 @@
         android:ems="10"
         android:id="@+id/etAddExpirationDate"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:hint="Ablaufdatum" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/etAddExpirationTime"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:hint="Uhrzeit" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cbIsFavourite"
-        android:layout_gravity="center_horizontal"
         android:checked="false"
         android:textSize="18sp"
         android:layout_marginBottom="20dp"
-        android:text="    Favorit"
+        android:text="Favorit"
         android:singleLine="false" />
 
     <LinearLayout
@@ -64,24 +73,23 @@
         >
 
         <Button
-            style="?android:attr/buttonStyleSmall"
             android:layout_weight=".70"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ToDo anlegen"
             android:id="@+id/bAddTodo"
-            android:background="#01DF3A"
-            android:layout_marginRight="10sp" />
+            android:layout_marginRight="10sp"
+            android:background="@color/colorPrimaryBright"
+            android:textColor="#FFFFFF" />
 
         <Button
-            style="?android:attr/buttonStyleSmall"
             android:layout_weight=".30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Abbrechen"
             android:id="@+id/bAddCancel"
-            android:background="#FE2E2E"
-            android:layout_marginLeft="10sp" />
+            android:background="#AAAAAA"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
 

@@ -29,8 +29,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        final LoginDBAdapter loginDBAdapter = new LoginDBAdapter(this).open();
-
+        final LoginDBAdapter loginDBAdapter = new LoginDBAdapter(this);
         final EditText etEmail = (EditText) findViewById(R.id.etEmail);
         final EditText etPassword = (EditText) findViewById(R.id.etPasswort);
         final EditText etPassword2 = (EditText) findViewById(R.id.etPasswort2);
@@ -67,6 +66,7 @@ public class Register extends AppCompatActivity {
 
                         // write user data in db
                         // TODO error handling
+                        loginDBAdapter.open();
                         loginDBAdapter.insertEntry(email, password);
 
                         Toast toast = Toast.makeText(getApplicationContext(), R.string.registration_info_successful_registration, Toast.LENGTH_LONG);
