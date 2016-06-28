@@ -23,7 +23,6 @@ public class Register extends AppCompatActivity {
      */
     private GoogleApiClient client;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +51,7 @@ public class Register extends AppCompatActivity {
                         tvRegisterError.setText(R.string.registration_error_empty_string);
                         tvRegisterError.setVisibility(View.VISIBLE);
 
-                    } else if(password.length() != 6){ // TODO magic number
+                    } else if(password.length() != 6){ //
 
                         tvRegisterError.setText(R.string.registration_error_invalid_password_length);
                         tvRegisterError.setVisibility(View.VISIBLE);
@@ -65,9 +64,10 @@ public class Register extends AppCompatActivity {
                     } else {
 
                         // write user data in db
-                        // TODO error handling
                         loginDBAdapter.open();
                         loginDBAdapter.insertEntry(email, password);
+
+
 
                         Toast toast = Toast.makeText(getApplicationContext(), R.string.registration_info_successful_registration, Toast.LENGTH_LONG);
                         toast.show();
@@ -128,20 +128,16 @@ public class Register extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Register Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
+                Action.TYPE_VIEW,
+                "Register Page",
                 Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
                 Uri.parse("android-app://todo.kebejaol.todo/http/host/path")
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
 
-    /* TODO
+    /*
 
     @Override
     protected void onDestroy(){

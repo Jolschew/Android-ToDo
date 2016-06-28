@@ -59,7 +59,6 @@ public class LoginDBAdapter {
     }
 
     // READ
-    // TODO Encrypt Password with Hash-Code
     public String getEntry (String eMail)
     {
         Cursor cursor = db.query("LOGIN", null, "EMAIL=?", new String[]{eMail}, null, null, null);

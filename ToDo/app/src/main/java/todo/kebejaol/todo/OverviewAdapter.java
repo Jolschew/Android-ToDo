@@ -62,7 +62,7 @@ public class OverviewAdapter extends ArrayAdapter<Item> {
         time = todoDBAdapter.getTimeFromMysql(itemsArrayList.get(position).getExpirationDate()) + " Uhr";
         todoDBAdapter.close();
 
-        //Date for Check if Todo-Date is before Today
+        //Date for Check if To-do-Date is before Today
         Date checkDate = null;
         try {
             checkDate = df.parse(itemsArrayList.get(position).getExpirationDate());
@@ -109,7 +109,7 @@ public class OverviewAdapter extends ArrayAdapter<Item> {
             }
         });
 
-        //On Favourite Checkbox-Click change Favourite Status of Todo
+        //On Favourite Checkbox-Click change Favourite Status of To-do
         isFavouriteView.setOnClickListener(new View.OnClickListener(){
 
             @Override

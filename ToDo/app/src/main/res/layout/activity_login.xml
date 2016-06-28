@@ -1,42 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:padding="50dp"
-    android:orientation="vertical">
-
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:hint="E-Mail" />
-
-    <EditText
-        android:id="@+id/etPasswort"
-        android:inputType="numberPassword"
-        android:maxLength="6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:hint="Passwort" />
-
-    <Button
-        android:id="@+id/bLogin"
-        android:text="Login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryBright"
-        android:textColor="#FFFFFF" />
+    android:orientation="vertical"
+    android:visibility="visible"
+    android:clickable="false">
 
     <TextView
-        android:id="@+id/tvRegister"
-        android:text="Registrieren"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Achtung!"
+        android:id="@+id/tvConnectionError1"
+        android:layout_gravity="center_horizontal"
+        android:background="#FFDDDD"
+        android:textAlignment="center"
+        android:textColor="#AA0000"
+        android:paddingTop="10dp"
+        android:visibility="invisible" />
+
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Keine Verbindung zum Webserver. Alle Daten werden lediglich lokal gespeichert"
+        android:id="@+id/tvConnectionError2"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:background="#FFDDDD"
+        android:textColor="#AA0000"
+        android:paddingBottom="10dp"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:paddingTop="20dp"
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:visibility="visible"
+        android:clickable="false">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bitte geben Sie eine gültige E-Mail an!"
+            android:id="@+id/tvErrorMessage"
+            android:layout_gravity="center_horizontal"
+            android:textSize="12dp"
+            android:padding="5dp"
+            android:visibility="invisible"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textIsSelectable="false" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="E-Mail"
+            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            android:inputType="textWebEmailAddress" />
+
+        <EditText
+            android:id="@+id/etPasswort"
+            android:inputType="numberPassword"
+            android:maxLength="6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="Passwort" />
+
+        <Button
+            android:id="@+id/bLogin"
+            android:text="Login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="#FFFFFF"
+            android:longClickable="false"
+            android:clickable="true"
+            android:contextClickable="false"
+            android:background="#DDDDDD" />
+
+        <TextView
+            android:id="@+id/tvRegister"
+            android:text="Registrieren"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
 
 
 </LinearLayout>

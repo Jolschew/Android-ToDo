@@ -7,9 +7,20 @@
     android:descendantFocusability="blocksDescendants"
     tools:context="todo.kebejaol.todo.Overview">
 
-    <Button
+
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/lvOverview"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:fastScrollEnabled="false"
+        android:layout_alignBottom="@+id/bOverviewAdd" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:text="Neu"
         android:id="@+id/bOverviewAdd"
         android:layout_alignParentBottom="true"
@@ -32,16 +43,5 @@
         android:background="#AAAAAA"
         android:textColor="#FFFFFF"
         android:layout_alignTop="@+id/bOverviewAdd" />
-
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lvOverview"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/bOverviewAdd"
-        android:fastScrollEnabled="false" />
 
 </RelativeLayout>

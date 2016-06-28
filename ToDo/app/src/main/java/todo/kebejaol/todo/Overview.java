@@ -59,8 +59,6 @@ public class Overview extends AppCompatActivity {
         }
         //Close Database Cursor
         todoDBAdapter.close();
-
-        //Todo impleent favourite sortig here!
         //ArrayList<String[]> todos = todoDBAdapter.getEntriesByFavourite();
 
         OverviewAdapter adapter = new OverviewAdapter(this, generateData(todos));

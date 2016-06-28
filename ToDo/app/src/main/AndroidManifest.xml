@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="todo.kebejaol.todo">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:debuggable="true"
@@ -27,8 +29,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".DetailTodo"></activity>
+        <activity android:name=".DetailTodo" />
+        <activity android:name=".ContactList"></activity>
     </application>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
 </manifest>
