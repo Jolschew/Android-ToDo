@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:onClick="ItemClickHandler"
+    android:focusable="false"
+    android:nestedScrollingEnabled="false">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Jan Olschewski"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/bMail"
+        android:layout_toStartOf="@+id/bMail" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="id"
+        android:id="@+id/id"
+        android:visibility="invisible" />
+
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="-"
+        android:id="@+id/bDeleteContact"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#DD0000"
+        android:textStyle="bold" />
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:text="SMS"
+        android:id="@+id/bSMS"
+        android:textSize="10dp"
+        android:background="@color/colorPrimaryBright"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        android:layout_alignTop="@+id/bDeleteContact"
+        android:layout_toLeftOf="@+id/bDeleteContact"
+        android:layout_toStartOf="@+id/bDeleteContact"
+        android:layout_marginRight="5dp" />
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:text="E-Mail"
+        android:id="@+id/bMail"
+        android:textSize="10dp"
+        android:background="@color/colorPrimaryBright"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/bSMS"
+        android:layout_toStartOf="@+id/bSMS"
+        android:layout_marginRight="5dp" />
+
+
+</RelativeLayout>
+
