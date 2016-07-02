@@ -1,19 +1,19 @@
-package todo.kebejaol.todo;
+package todo.kebejaol.todo.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import todo.kebejaol.todo.Database.LoginDBAdapter;
+import todo.kebejaol.todo.R;
 import todo.kebejaol.todo.Webservice.Webservice;
 
 public class Login extends AppCompatActivity{
@@ -27,7 +27,10 @@ public class Login extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //Check if Webservice is available, if not sbhow Message "Webservcie not available"
+        //Global varible to get Username on all Acivities
+        final User globalUsername = ((User)getApplicationContext());
+
+
 
         final LoginDBAdapter loginDBAdapter = new LoginDBAdapter(this);
         final EditText etEmail = (EditText) findViewById(R.id.etEmail);
@@ -36,7 +39,7 @@ public class Login extends AppCompatActivity{
         final TextView tvRegisterLink = (TextView) findViewById(R.id.tvRegister);
         final TextView tvErrorMessage = (TextView) findViewById(R.id.tvErrorMessage);
         final TextView tvConnectionError1 = (TextView) findViewById(R.id.tvConnectionError1);
-        final TextView tvConnectionError2 = (TextView) findViewById(R.id.tvConnectionError1);
+        final TextView tvConnectionError2 = (TextView) findViewById(R.id.tvConnectionError2);
 
         // Check if there is a connection to the Webserver
         if(!webService.isConnection())
@@ -89,6 +92,7 @@ public class Login extends AppCompatActivity{
                             String storedPassword = loginDBAdapter.getEntry(etEmail.getText().toString());
 
                             if (storedPassword.equals(etPassword.getText().toString())) {
+                                globalUsername.setUsername(etEmail.getText().toString());
 
                                 // TODO send User ID to Overview and save it with To-Dos
                                 Toast toast = Toast.makeText(getApplicationContext(), R.string.login_success, Toast.LENGTH_LONG);
@@ -134,5 +138,6 @@ public class Login extends AppCompatActivity{
         java.util.regex.Matcher m = p.matcher(email);
         return m.matches();
     }
+
 
 } // class

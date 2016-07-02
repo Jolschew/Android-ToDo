@@ -1,4 +1,4 @@
-package todo.kebejaol.todo;
+package todo.kebejaol.todo.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -6,16 +6,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.ExpandedMenuView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import todo.kebejaol.todo.Database.TodoDBAdapter;
+import todo.kebejaol.todo.ListViewAdapter.Todo;
+import todo.kebejaol.todo.ListViewAdapter.OverviewAdapter;
+import todo.kebejaol.todo.R;
 
 
 public class Overview extends AppCompatActivity {
@@ -28,6 +33,9 @@ public class Overview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
+        final User globaleVariable = (User) getApplicationContext();
+        final String email = globaleVariable.getUsername();
+
         final ListView lvOverview = (ListView) findViewById(R.id.lvOverview);
         final Button bOverviewAdd = (Button) findViewById(R.id.bOverviewAdd);
         final Button bSortList = (Button) findViewById(R.id.bSortList);
@@ -37,25 +45,25 @@ public class Overview extends AppCompatActivity {
         //Get Sorting from Overview and sort by chosen Type
         final Intent detailIntent = getIntent();
         //standard sort
-        ArrayList<String[]> todos = todoDBAdapter.getEntriesByDate();
+        ArrayList<String[]> todos;
         // Check if sorting-Key exists (Null-Pointer)
         if(detailIntent.getExtras() != null){
             if(detailIntent.getExtras().get("sorting").equals("date"))
             {
-                todos = todoDBAdapter.getEntriesByDate();
+                todos = todoDBAdapter.getEntriesByDate(email);
             }
             else if(detailIntent.getExtras().get("sorting").equals("is_favourite"))
             {
-                todos = todoDBAdapter.getEntriesByIsFavourite();
+                todos = todoDBAdapter.getEntriesByIsFavourite(email);
             }
             else
             {
-                todos = todoDBAdapter.getEntriesByIsFinished();
+                todos = todoDBAdapter.getEntriesByIsFinished(email);
             }
         }
         else
         {
-            todos = todoDBAdapter.getEntriesByIsFinished();
+            todos = todoDBAdapter.getEntriesByIsFinished(email);
         }
         //Close Database Cursor
         todoDBAdapter.close();
@@ -169,11 +177,11 @@ public class Overview extends AppCompatActivity {
     }
 
 
-    private ArrayList<Item> generateData(ArrayList<String[]> todos) {
-        ArrayList<Item> items = new ArrayList<Item>();
+    private ArrayList<Todo> generateData(ArrayList<String[]> todos) {
+        ArrayList<Todo> items = new ArrayList<Todo>();
         for (String[] c : todos) {
             // add Items (1=Name, 3= Expiration_Date, 4= Favorit, 5=is_finished)  to Listview
-            items.add(new Item(c[0], c[1], c[3], c[4],c[5]));
+            items.add(new Todo(c[0], c[1], c[3], c[4],c[5]));
         }
 
 

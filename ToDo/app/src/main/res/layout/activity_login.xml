@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:visibility="visible"
-    android:clickable="false">
+    android:clickable="false"
+    android:textAlignment="center">
 
     <TextView
         android:layout_width="match_parent"
@@ -14,12 +15,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Achtung!"
         android:id="@+id/tvConnectionError1"
-        android:layout_gravity="center_horizontal"
         android:background="#FFDDDD"
-        android:textAlignment="center"
+        android:textAlignment="inherit"
         android:textColor="#AA0000"
         android:paddingTop="10dp"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,16 +28,16 @@
         android:text="Keine Verbindung zum Webserver. Alle Daten werden lediglich lokal gespeichert"
         android:id="@+id/tvConnectionError2"
         android:layout_gravity="center_horizontal"
-        android:textAlignment="center"
         android:background="#FFDDDD"
         android:textColor="#AA0000"
         android:paddingBottom="10dp"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:textAlignment="inherit" />
 
     <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:paddingTop="20dp"
+        android:paddingTop="0dp"
         android:orientation="vertical"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"

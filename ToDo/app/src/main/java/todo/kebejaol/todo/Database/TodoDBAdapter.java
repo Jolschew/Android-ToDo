@@ -1,13 +1,16 @@
-package todo.kebejaol.todo;
+package todo.kebejaol.todo.Database;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
+
+import todo.kebejaol.todo.Activities.User;
 
 /**
  * Created by Jan on 17.06.16.
@@ -20,10 +23,12 @@ public class TodoDBAdapter {
     static final int NAME_COLUMN = 1;
 
     //Database Creation Statement
-    public static final String DB_CREATE_TODO = "CREATE TABLE IF NOT EXISTS " + "todo" + "( " + "id" + " integer primary key autoincrement," + "name  text,description text, expiration_date datetime, is_favourite text, is_finished text); ";
+    public static final String DB_CREATE_TODO = "CREATE TABLE IF NOT EXISTS " + "todo" + "( " + "id" + " integer primary key autoincrement," + "name  text,description text, expiration_date datetime, is_favourite text, is_finished text, email text); ";
+    public static final String DB_CREATE_CONTACTS = "CREATE TABLE IF NOT EXISTS " + "contact" + "( " + "id" + " integer primary key autoincrement," + " name  text, has_phone text, todo text, mail text, phone_number text); ";
+
 
     //TODO Delete this constant, if not nescessary anymore
-    public static final String DB_DROP_TABLE = "DROP TABLE todo";
+    public static final String DB_DROP_TABLE = "DROP TABLE contact";
 
     //instance of database
     public SQLiteDatabase db;
@@ -41,10 +46,11 @@ public class TodoDBAdapter {
     {
         db = dbHelper.getWritableDatabase();
         //TODO Remove Drop Table
-        //db.execSQL(DB_DROP_TABLE);
+        // db.execSQL(DB_DROP_TABLE);
 
-        //Create  Table Todo
+        //Create  Table To-do and Contacts
         db.execSQL(DB_CREATE_TODO);
+        db.execSQL(DB_CREATE_CONTACTS);
         return this;
     }
     public void close()
@@ -58,10 +64,11 @@ public class TodoDBAdapter {
     }
 
     // CREATE
-    public void insertEntry(String name, String description, String expiration_date, String isFavourite)
+    public void insertEntry(String email, String name, String description, String expiration_date, String isFavourite)
     {
         ContentValues todoValues = new ContentValues();
         // Assign Values to DB
+        todoValues.put("email", email);
         todoValues.put("name", name);
         todoValues.put("description", description);
         todoValues.put("expiration_date", expiration_date);
@@ -74,9 +81,9 @@ public class TodoDBAdapter {
 
     // READ
     // TODO userspezifisch WHERE
-    public ArrayList<String[]> getEntriesByDate()
+    public ArrayList<String[]> getEntriesByDate(String email)
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM todo ORDER BY expiration_date ASC", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM todo WHERE email= '"+ email +"' ORDER BY expiration_date ASC", null);
         cursor.moveToFirst();
 
         ArrayList<String[]> todos = new ArrayList<String[]>();
@@ -97,9 +104,9 @@ public class TodoDBAdapter {
         return todos;
     }
 
-    public ArrayList<String[]> getEntriesByIsFinished()
+    public ArrayList<String[]> getEntriesByIsFinished(String email)
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM todo ORDER BY cast(is_finished as unsigned) DESC, expiration_date ASC", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM todo WHERE email= '"+ email +"' ORDER BY cast(is_finished as unsigned) DESC, expiration_date ASC", null);
         cursor.moveToFirst();
 
         ArrayList<String[]> todos = new ArrayList<String[]>();
@@ -120,9 +127,9 @@ public class TodoDBAdapter {
         return todos;
     }
 
-    public ArrayList<String[]> getEntriesByIsFavourite()
+    public ArrayList<String[]> getEntriesByIsFavourite(String email)
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM todo ORDER BY cast(is_favourite as unsigned) DESC, expiration_date ASC", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM todo WHERE email = '"+ email +"' ORDER BY cast(is_favourite as unsigned) DESC, expiration_date ASC", null);
         cursor.moveToFirst();
 
         ArrayList<String[]> todos = new ArrayList<String[]>();
@@ -174,7 +181,6 @@ public class TodoDBAdapter {
 
         String user = "id=?";
         db.update("todo", updatedValues, user, new String[]{id});
-        System.out.println("Works");
     }
 
     public void updateIsFinished(String id, String isFinished) {
@@ -202,7 +208,6 @@ public class TodoDBAdapter {
             todo = new String[]{cursor.getString(0), cursor.getString(1), cursor.getString(2),
                    cursor.getString(3), cursor.getString(4), cursor.getString(5)};
         }
-        System.out.println(todo[1]);
         return todo;
     }
 
@@ -231,6 +236,105 @@ public class TodoDBAdapter {
         date = day + "." + month + "." + year;
         return date;
     }
+
+
+    public ArrayList<String[]> getContactsFromPhoneList(ContentResolver resolver, String todoID)
+    {
+
+        ArrayList<String[]> contacts = new ArrayList<String[]>();
+
+
+        Cursor cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
+
+        while (cursor.moveToNext()){
+            String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+            String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+            String mail = "";
+            String phoneNumber = "";
+            String hasPhoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+            //Get Mail Address from Contact ID
+            Cursor emailCur = resolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[]{id}, null);
+            while (emailCur.moveToNext()) {
+                 mail = emailCur.getString(
+                        emailCur.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+            }
+            emailCur.close();
+
+            //Get Phone Number from COnatct ID
+            Cursor phoneCur = resolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
+            while (phoneCur.moveToNext()) {
+                phoneNumber = phoneCur.getString(
+                        phoneCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            }
+            phoneCur.close();
+
+            String tmpTodo[] = new String[]{id,name,hasPhoneNumber, todoID, mail,phoneNumber};
+            contacts.add(tmpTodo);
+
+
+
+        }
+        cursor.close();
+        return contacts;
+    }
+
+    public void addContactToTodo(String todoId, String name, String hasNumber, String mail, String phone_number)
+    {
+        //Check if Contact is in To-do already
+        if(!isContactInToDo(todoId, name))
+        {
+            ContentValues todoValues = new ContentValues();
+            // Assign Values to DB
+            todoValues.put("todo", todoId);
+            todoValues.put("name", name);
+            todoValues.put("mail", mail);
+            todoValues.put("has_phone", hasNumber);
+            todoValues.put("phone_number", phone_number);
+            //Insert row in table
+            db.insert("contact", null, todoValues);
+        }
+
+
+    }
+
+    public boolean isContactInToDo(String todoID, String name)
+    {
+        Cursor cursor = db.rawQuery("SELECT * FROM contact WHERE todo = '" + todoID + "' AND name = '" + name + "' ", null);
+        if(cursor.getCount() == 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public ArrayList<String[]> getContactsFromToDo(String toDoID) {
+        Cursor cursor = db.rawQuery("SELECT * FROM contact WHERE todo = '" + toDoID + "' ", null);
+        cursor.moveToFirst();
+
+        ArrayList<String[]> contacts = new ArrayList<String[]>();
+
+        while (!cursor.isAfterLast()) {
+            String tmpContact[] = new String[]{
+                    cursor.getString(cursor.getColumnIndex("id")),
+                    cursor.getString(cursor.getColumnIndex("name")),
+                    cursor.getString(cursor.getColumnIndex("has_phone")),
+                    cursor.getString(cursor.getColumnIndex("todo")),
+                    cursor.getString(cursor.getColumnIndex("mail")),
+                    cursor.getString(cursor.getColumnIndex("phone_number")),
+            };
+            contacts.add(tmpContact);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return contacts;
+    }
+
+    public void deleteContact(String id){
+        String contact = "id=?";
+        db.delete("contact", contact, new String[]{id});
+    }
+
 
 
 }

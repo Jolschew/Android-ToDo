@@ -1,9 +1,9 @@
-package todo.kebejaol.todo;
+package todo.kebejaol.todo.ListViewAdapter;
 
 /**
  * Created by Jan on 18.06.16.
  */
-public class Item {
+public class Todo {
     private String id;
     private String todoName;
     private String description;
@@ -11,7 +11,7 @@ public class Item {
     private String isFavourite;
     private String isFinished;
 
-    public Item(String id, String name, String expirationDate, String isFavourite,  String isFinished) {
+    public Todo(String id, String name, String expirationDate, String isFavourite, String isFinished) {
         super();
         this.id = id;
         this.todoName = name;

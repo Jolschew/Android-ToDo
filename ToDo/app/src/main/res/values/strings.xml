@@ -20,5 +20,7 @@
     <string name="Overview_info_finished_change">Status: \"Beendet\" geändert</string>
     <string name="login_error_empty_email">Bitte füllen Sie das E-Mail-Feld aus</string>
     <string name="login_error_empty_password">Bitte füllen Sie das Passwort-Feld aus</string>
+    <string name="DetailTodo_info_successful_contact_add">Kontakt hinzugefügt</string>
+    <string name="DetailTodo_info_successful_contact_delete">Kontakt entfernt</string>
 
 </resources>

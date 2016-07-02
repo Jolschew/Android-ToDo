@@ -1,10 +1,12 @@
-package todo.kebejaol.todo;
+package todo.kebejaol.todo.Activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,13 +14,19 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
+
+import todo.kebejaol.todo.Database.TodoDBAdapter;
+import todo.kebejaol.todo.ListViewAdapter.Contact;
+import todo.kebejaol.todo.ListViewAdapter.DetailviewAdapter;
+import todo.kebejaol.todo.R;
 
 public class DetailTodo extends AppCompatActivity {
 
@@ -37,10 +45,10 @@ public class DetailTodo extends AppCompatActivity {
         final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         // Find complete Entry By ID
         String[] todo = todoDBAdapter.getEntry(id);
-
         //Close Database Cursor
         todoDBAdapter.close();
 
+        final TextView tvAddHeading = (TextView) findViewById(R.id.tvDetailHeading);
         final EditText etName = (EditText) findViewById(R.id.etDetailName);
         final EditText etExpirationDate = (EditText) findViewById(R.id.etDetailExpirationDate);
         final EditText etExpirationTime = (EditText) findViewById(R.id.etDetailExpirationTime);
@@ -50,6 +58,9 @@ public class DetailTodo extends AppCompatActivity {
         final Button bDelete = (Button) findViewById(R.id.bDelete);
         final Button bChangeTodo = (Button) findViewById(R.id.bChangeTodo);
         final Button bCancel = (Button) findViewById(R.id.bChangeCancel);
+        final Button bAddContact = (Button) findViewById(R.id.bAddContact);
+        final ListView lvContacts = (ListView) findViewById(R.id.lvContacts);
+
         String date2, time2;
         date2 = todoDBAdapter.getDateFromMysql(todo[3]);
         time2 = todoDBAdapter.getTimeFromMysql(todo[3]);
@@ -66,6 +77,15 @@ public class DetailTodo extends AppCompatActivity {
         if (todo[5].equals("1")) {
             cbIsFinished.setChecked(true);
         }
+
+        ArrayList<String[]> contacts;
+        todoDBAdapter.open();
+        contacts = todoDBAdapter.getContactsFromToDo(id);
+        DetailviewAdapter adapter = new DetailviewAdapter(this, generateData(contacts));
+        lvContacts.setAdapter(adapter);
+
+
+
 
 
 
@@ -194,7 +214,6 @@ public class DetailTodo extends AppCompatActivity {
 
                 //Button Click Bestätigen
                 public void onClick(View view){
-
                     // Show Alert Box and Ask if User want's to proceed
                     new AlertDialog.Builder(DetailTodo.this)
                             .setTitle("ToDo ändern")
@@ -247,6 +266,36 @@ public class DetailTodo extends AppCompatActivity {
             }); // setOnclickListener
         } // bChange != null
 
+
+        if (bAddContact != null) {
+
+            bAddContact.setOnClickListener(new View.OnClickListener() {
+
+                //Button Click Bestätigen
+                public void onClick(View view){
+                    Intent overviewIntent = new Intent(DetailTodo.this, AddContact.class);
+                    overviewIntent.putExtra("todoID", detailIntent.getExtras().getString("id"));
+                    DetailTodo.this.startActivity(overviewIntent);
+
+
+                }// onClick
+
+            }); // setOnclickListener
+        } // bAddContact != null
+
+
+
+    }
+
+    private ArrayList<Contact> generateData(ArrayList<String[]> contacts) {
+        ArrayList<Contact> items = new ArrayList<Contact>();
+        for (String[] c : contacts) {
+            // add Items ( id,  name,  hasPhone,  todoID,  phoneNumber,  mail)  to Listview
+            items.add(new Contact(c[0], c[1], c[2], c[3],c[4],c[5]));
+        }
+
+
+        return items;
     }
 
 

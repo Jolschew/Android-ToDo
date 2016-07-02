@@ -1,4 +1,4 @@
-package todo.kebejaol.todo;
+package todo.kebejaol.todo.Database;
 
 import android.content.ContentValues;
 import android.content.Context;

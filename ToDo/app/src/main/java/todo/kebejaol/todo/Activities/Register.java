@@ -1,4 +1,4 @@
-package todo.kebejaol.todo;
+package todo.kebejaol.todo.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +13,9 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import todo.kebejaol.todo.Database.LoginDBAdapter;
+import todo.kebejaol.todo.R;
 
 public class Register extends AppCompatActivity {
 
@@ -73,7 +76,7 @@ public class Register extends AppCompatActivity {
                         toast.show();
 
                         // change activity to login or overview
-                        Intent overviewIntent = new Intent(Register.this, Overview.class);
+                        Intent overviewIntent = new Intent(Register.this, Login.class);
                         Register.this.startActivity(overviewIntent);
 
                     }

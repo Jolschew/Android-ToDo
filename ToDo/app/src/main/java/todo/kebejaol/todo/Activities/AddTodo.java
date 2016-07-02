@@ -1,4 +1,4 @@
-package todo.kebejaol.todo;
+package todo.kebejaol.todo.Activities;
 
 
 import android.app.AlertDialog;
@@ -22,10 +22,11 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
+
+import todo.kebejaol.todo.Database.TodoDBAdapter;
+import todo.kebejaol.todo.R;
 
 /**
  * Created by Kevin on 15.06.2016.
@@ -44,6 +45,10 @@ public class AddTodo extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_todo);
+        //get Email-Adress
+        final User globaleVariable = (User) getApplicationContext();
+        final String email = globaleVariable.getUsername();
+
         final Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -171,8 +176,7 @@ public class AddTodo extends AppCompatActivity {
                                     }
 
                                     // write user data in db
-                                    // TODO error handling
-                                    todoDBAdapter.insertEntry(name, description, expirationDateTime, isFavourite);
+                                    todoDBAdapter.insertEntry(email, name, description, expirationDateTime, isFavourite);
                                     todoDBAdapter.close();
 
 

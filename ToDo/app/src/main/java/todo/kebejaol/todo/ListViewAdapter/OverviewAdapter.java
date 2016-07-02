@@ -1,4 +1,4 @@
-package todo.kebejaol.todo;
+package todo.kebejaol.todo.ListViewAdapter;
 
 /**
  * Created by Jan on 18.06.16.
@@ -14,7 +14,6 @@ import java.util.Date;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +22,16 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class OverviewAdapter extends ArrayAdapter<Item> {
+import todo.kebejaol.todo.Activities.DetailTodo;
+import todo.kebejaol.todo.Database.TodoDBAdapter;
+import todo.kebejaol.todo.R;
+
+public class OverviewAdapter extends ArrayAdapter<Todo> {
 
     private final Context context;
-    private final ArrayList<Item> itemsArrayList;
+    private final ArrayList<Todo> itemsArrayList;
 
-    public OverviewAdapter(Context context, ArrayList<Item> itemsArrayList) {
+    public OverviewAdapter(Context context, ArrayList<Todo> itemsArrayList) {
 
         super(context, R.layout.row, itemsArrayList);
 

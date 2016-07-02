@@ -10,17 +10,20 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Login">
+        android:theme="@style/AppTheme"
+        android:name=".Activities.User">
+        <activity android:name=".Activities.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register" />
-        <activity android:name=".Overview" />
-        <activity android:name=".AddTodo" />
+
+        <activity android:name=".Activities.Register" />
+        <activity android:name=".Activities.Overview" />
+        <activity android:name=".Activities.AddTodo" />
+        <activity android:name=".Activities.AddContact" />
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -29,8 +32,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".DetailTodo" />
-        <activity android:name=".ContactList"></activity>
+        <activity android:name=".Activities.DetailTodo" />
+        <activity android:name=".ListViewAdapter.ContactListAdapter"></activity>
     </application>
 
 </manifest>

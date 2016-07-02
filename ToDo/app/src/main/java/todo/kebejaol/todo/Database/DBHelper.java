@@ -1,9 +1,11 @@
-package todo.kebejaol.todo;
+package todo.kebejaol.todo.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.Settings;
+
+import todo.kebejaol.todo.Database.LoginDBAdapter;
+import todo.kebejaol.todo.Database.TodoDBAdapter;
 
 /**
  * Created by Jan on 25.04.16.
