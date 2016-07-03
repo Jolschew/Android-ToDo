@@ -1,13 +1,8 @@
 package todo.kebejaol.todo.ListViewAdapter;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.ContactsContract;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +13,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import todo.kebejaol.todo.Activities.AddContact;
-import todo.kebejaol.todo.Activities.AddTodo;
-import todo.kebejaol.todo.Activities.DetailTodo;
 import todo.kebejaol.todo.Activities.Overview;
-import todo.kebejaol.todo.Database.TodoDBAdapter;
+import todo.kebejaol.todo.Model.TodoDBAdapter;
 import todo.kebejaol.todo.R;
 
 public class DetailviewAdapter extends ArrayAdapter<Contact> {
@@ -62,20 +54,21 @@ public class DetailviewAdapter extends ArrayAdapter<Contact> {
         final String contactPhoneNumber = itemsArrayList.get(position).getPhoneNumber();
         final String contactEmail = itemsArrayList.get(position).getMail();
         name.setText(contactName);
-        if(contactHasPhone.equals("1"))
-        {
+
+        //check if User has Number and Mail and enable Buttons if true
+        if (contactHasPhone.equals("1")) {
             bSMS.setVisibility(View.VISIBLE);
         }
-        if(!contactEmail.equals(""))
-        {
+        if (!contactEmail.equals("")) {
             bMail.setVisibility(View.VISIBLE);
         }
 
-        if(bDeleteContact != null)
-        {
+        //OnClickListener for Delete Button
+        if (bDeleteContact != null) {
             bDeleteContact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //delete Contact from Table
                     todoDBAdapter.open();
                     todoDBAdapter.deleteContact(contactID);
                     todoDBAdapter.close();
@@ -87,17 +80,15 @@ public class DetailviewAdapter extends ArrayAdapter<Contact> {
             });
         }
 
-        if(bSMS != null)
-        {
+        if (bSMS != null) {
             bSMS.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    call(contactPhoneNumber);
+                    sendSMS(contactPhoneNumber);
                 }
             });
         }
-        if(bMail != null)
-        {
+        if (bMail != null) {
             bMail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -105,35 +96,24 @@ public class DetailviewAdapter extends ArrayAdapter<Contact> {
                 }
             });
         }
-
         return rowView;
     }
 
-    protected void call(String number) {
-        Uri uri = Uri.parse("smsto:"+ number);
+    // start SMS-Activity if Button pressed
+    protected void sendSMS(String number) {
+        Uri uri = Uri.parse("smsto:" + number);
         Intent sendIntent = new Intent(Intent.ACTION_SENDTO, uri);
         sendIntent.putExtra("sms_body", "Denk an deinen TODO");
         context.startActivity(sendIntent);
     }
 
+    // start Email-Activity if Button pressed
     protected void sendEmail(String mail) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto",mail, null));
+                "mailto", mail, null));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Dein ToDo");
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Denk an dein ToDo");
         context.startActivity(Intent.createChooser(emailIntent, "E-Mail"));
-
-//        String uriText =
-//                "mailto:"  +mail+
-//                        "?subject=" + Uri.encode("ToDo für dich") +
-//                        "&body=" + Uri.encode("Denk an deinen ToDo");
-//
-//        Uri uri = Uri.parse(uriText);
-//
-//        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
-//        sendIntent.setData(uri);
-//        context.startActivity(Intent.createChooser(sendIntent, "Send email"));
-
     }
 
 }

@@ -6,8 +6,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.provider.ContactsContract;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,11 +21,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import todo.kebejaol.todo.Database.TodoDBAdapter;
+import todo.kebejaol.todo.Model.TodoDBAdapter;
 import todo.kebejaol.todo.ListViewAdapter.Contact;
 import todo.kebejaol.todo.ListViewAdapter.DetailviewAdapter;
 import todo.kebejaol.todo.R;
 
+/**
+ * Created by Jan on 19.06.2016.
+ */
 public class DetailTodo extends Activity {
 
     @Override
@@ -78,28 +79,22 @@ public class DetailTodo extends Activity {
             cbIsFinished.setChecked(true);
         }
 
+        // Create Listview with Contacts
         ArrayList<String[]> contacts;
         todoDBAdapter.open();
         contacts = todoDBAdapter.getContactsFromToDo(id);
         DetailviewAdapter adapter = new DetailviewAdapter(this, generateData(contacts));
         lvContacts.setAdapter(adapter);
 
-
-
-
-
-
         //Create Datepicker Dialog for etExpirationDate
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
             //Help Method for Datepicker
             public void updateLabel() {
                 etExpirationDate.setText(dateFormat.format(calendar.getTime()));
             }
 
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, monthOfYear);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -127,8 +122,8 @@ public class DetailTodo extends Activity {
         };
 
 
+        //onFocusChangeListener for showing Datepicker on first click (onclick would show it on second click)
         if (etExpirationDate != null) {
-            //onFocusChangeListener for showing Datepicker on first click (onclick would show it on second click)
             etExpirationDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
                 @Override
@@ -144,10 +139,10 @@ public class DetailTodo extends Activity {
             });
         }// expirationDate != null
 
-        if (etExpirationTime != null) {
-            //onFocusChangeListener for showing Timepicker on first click
-            etExpirationTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
+        //onFocusChangeListener for showing Timepicker on first click
+        if (etExpirationTime != null) {
+            etExpirationTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
                 @Override
                 public void onFocusChange(View view, boolean b) {
@@ -158,12 +153,13 @@ public class DetailTodo extends Activity {
             });
         }//On CLick Expiration Time
 
-        if ( bCancel != null) {
 
+        // Back Button Listener
+        if (bCancel != null) {
             bCancel.setOnClickListener(new View.OnClickListener() {
 
                 //Button Click cancel
-                public void onClick(View view){
+                public void onClick(View view) {
                     // change activity to overview
                     Intent overviewIntent = new Intent(DetailTodo.this, Overview.class);
                     DetailTodo.this.startActivity(overviewIntent);
@@ -171,12 +167,13 @@ public class DetailTodo extends Activity {
             });
         } // bAddCancel != 0
 
-        if ( bDelete != null) {
+
+        // Delete Button Listener
+        if (bDelete != null) {
             bDelete.setOnClickListener(new View.OnClickListener() {
 
                 //Button Click cancel
-                public void onClick(View view){
-
+                public void onClick(View view) {
                     // Show Alert Box and Ask if User want's to proceed
                     new AlertDialog.Builder(DetailTodo.this)
                             .setTitle("ToDo löschen")
@@ -201,19 +198,16 @@ public class DetailTodo extends Activity {
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
-
-
                 }
             });
-        } // bAddCancel != 0
+        } // bDelete != 0
 
-
+        //ChangeTo-Do Listener
         if (bChangeTodo != null) {
-
             bChangeTodo.setOnClickListener(new View.OnClickListener() {
 
                 //Button Click Bestätigen
-                public void onClick(View view){
+                public void onClick(View view) {
                     // Show Alert Box and Ask if User want's to proceed
                     new AlertDialog.Builder(DetailTodo.this)
                             .setTitle("ToDo ändern")
@@ -225,27 +219,24 @@ public class DetailTodo extends Activity {
                                     String description = etDescription.getText().toString();
                                     String expirationDate = etExpirationDate.getText().toString();
                                     String expirationTime = etExpirationTime.getText().toString() + ":00";
-                                    String expirationDateTime = todoDBAdapter.formatDateTimeToMysql(expirationDate,expirationTime);
+                                    String expirationDateTime = todoDBAdapter.formatDateTimeToMysql(expirationDate, expirationTime);
                                     String isFavourite = "0";
                                     String isFinished = "0";
-                                    if(cbIsFavourite.isChecked())
-                                    {
+                                    if (cbIsFavourite.isChecked()) {
                                         isFavourite = "1";
                                     }
-                                    if(cbIsFinished.isChecked())
-                                    {
+                                    if (cbIsFinished.isChecked()) {
                                         isFinished = "1";
                                     }
 
                                     // write user data in db
-
                                     todoDBAdapter.open();
                                     todoDBAdapter.updateEntry(id, name, description, expirationDateTime, isFavourite, isFinished);
                                     todoDBAdapter.close();
+
+                                    // show Toast and change activity to Overview
                                     Toast toast = Toast.makeText(getApplicationContext(), R.string.DetailTodo_info_successful_change, Toast.LENGTH_LONG);
                                     toast.show();
-
-                                    // change activity to login or overview
                                     Intent overviewIntent = new Intent(DetailTodo.this, Overview.class);
                                     DetailTodo.this.startActivity(overviewIntent);
                                 }
@@ -258,48 +249,35 @@ public class DetailTodo extends Activity {
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
-
-
-
                 }// onClick
 
             }); // setOnclickListener
         } // bChange != null
 
 
+        //AddContact-Button Listener
         if (bAddContact != null) {
-
             bAddContact.setOnClickListener(new View.OnClickListener() {
 
                 //Button Click Bestätigen
-                public void onClick(View view){
+                public void onClick(View view) {
                     Intent overviewIntent = new Intent(DetailTodo.this, AddContact.class);
                     overviewIntent.putExtra("todoID", detailIntent.getExtras().getString("id"));
                     DetailTodo.this.startActivity(overviewIntent);
-
-
                 }// onClick
 
             }); // setOnclickListener
         } // bAddContact != null
-
-
-
     }
 
+
+    // Convert Data from Database to Contact-Objects
     private ArrayList<Contact> generateData(ArrayList<String[]> contacts) {
         ArrayList<Contact> items = new ArrayList<Contact>();
         for (String[] c : contacts) {
             // add Items ( id,  name,  hasPhone,  todoID,  phoneNumber,  mail)  to Listview
-            items.add(new Contact(c[0], c[1], c[2], c[3],c[4],c[5]));
+            items.add(new Contact(c[0], c[1], c[2], c[3], c[4], c[5]));
         }
-
-
         return items;
     }
-
-
-
-
-
 }

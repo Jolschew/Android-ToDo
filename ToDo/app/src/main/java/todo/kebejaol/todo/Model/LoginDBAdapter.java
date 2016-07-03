@@ -1,4 +1,4 @@
-package todo.kebejaol.todo.Database;
+package todo.kebejaol.todo.Model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 /**
  * Created by Jan on 25.04.16.
- *
+ * <p/>
  * Handle CRUD Operations
  */
 public class LoginDBAdapter {
@@ -17,13 +17,11 @@ public class LoginDBAdapter {
     static final int NAME_COLUMN = 1;
 
     //Database Creation Statement
-    public static final String DB_CREATE_LOGIN = "create table "+ "LOGIN"+ "( " +"ID"+" integer primary key autoincrement,"+ "EMAIL  text,PASSWORD text); ";
-
+    public static final String DB_CREATE_LOGIN = "create table " + "LOGIN" + "( " + "ID" + " integer primary key autoincrement," + "EMAIL  text,PASSWORD text); ";
     //instance of database
     public SQLiteDatabase db;
     //Context of application using database
     private final Context context;
-
     private DBHelper dbHelper;
 
     public LoginDBAdapter(Context context) {
@@ -31,24 +29,21 @@ public class LoginDBAdapter {
         dbHelper = new DBHelper(this.context, DB_NAME, null, DB_VERSION);
     }
 
-    public LoginDBAdapter open() throws SQLException
-    {
+    public LoginDBAdapter open() throws SQLException {
         db = dbHelper.getWritableDatabase();
         return this;
     }
-    public void close()
-    {
+
+    public void close() {
         db.close();
     }
 
-    public SQLiteDatabase getDBInstance()
-    {
+    public SQLiteDatabase getDBInstance() {
         return db;
     }
 
     // CREATE
-    public void insertEntry(String eMail, String password)
-    {
+    public void insertEntry(String eMail, String password) {
         ContentValues registerValues = new ContentValues();
         // Assign Values to DB
         registerValues.put("EMAIL", eMail);
@@ -59,13 +54,11 @@ public class LoginDBAdapter {
     }
 
     // READ
-    public String getEntry (String eMail)
-    {
+    public String getEntry(String eMail) {
         Cursor cursor = db.query("LOGIN", null, "EMAIL=?", new String[]{eMail}, null, null, null);
 
         //If User does not exist
-        if (cursor.getCount() < 1)
-        {
+        if (cursor.getCount() < 1) {
             cursor.close();
             return "Dieser Nutzer existiert nicht!";
         }
@@ -76,20 +69,18 @@ public class LoginDBAdapter {
     }
 
     // UPDATE
-    public void updateEntry(String eMail, String password)
-    {
+    public void updateEntry(String eMail, String password) {
         ContentValues updatedValues = new ContentValues();
         updatedValues.put("EMAIL", eMail);
         updatedValues.put("PASSWORD", password);
 
         String user = "EMAIL=?";
-        db.update("LOGIN", updatedValues, user, new String[]{eMail});   
+        db.update("LOGIN", updatedValues, user, new String[]{eMail});
 
     }
 
     // DELETE
-    public int deleteEntry(String eMail)
-    {
+    public int deleteEntry(String eMail) {
         String user = "EMAIL=?";
         int numberofEntriesDeleted = db.delete("LOGIN", user, new String[]{eMail});
         return numberofEntriesDeleted;

@@ -1,6 +1,5 @@
 package todo.kebejaol.todo.Activities;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -25,14 +24,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import todo.kebejaol.todo.Database.TodoDBAdapter;
+import todo.kebejaol.todo.Model.TodoDBAdapter;
 import todo.kebejaol.todo.R;
 
 /**
- * Created by Kevin on 15.06.2016.
+ * Created by Jan on 15.06.2016.
+ *
  */
 public class AddTodo extends Activity {
-
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -45,6 +44,7 @@ public class AddTodo extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_todo);
+
         //get Email-Adress
         final User globaleVariable = (User) getApplicationContext();
         final String email = globaleVariable.getUsername();
@@ -53,7 +53,6 @@ public class AddTodo extends Activity {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(this).open();
-        final TextView tvAddHeading = (TextView) findViewById(R.id.tvAddHeading);
         final EditText etAddName = (EditText) findViewById(R.id.etAddName);
         final EditText etAddDescription = (EditText) findViewById(R.id.etAddDescription);
         final EditText etAddExpirationDate = (EditText) findViewById(R.id.etAddExpirationDate);
@@ -75,18 +74,15 @@ public class AddTodo extends Activity {
             }
 
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, monthOfYear);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
             }
-
         };
 
         final TimePickerDialog.OnTimeSetListener time = new TimePickerDialog.OnTimeSetListener() {
-
             //Help Method for Datepicker to format Date
             public void updateLabel() {
                 etAddExpirationTime.setText(timeFormat.format(calendar.getTime()));
@@ -122,7 +118,6 @@ public class AddTodo extends Activity {
             //onFocusChangeListener for showing Timepicker on first click
             etAddExpirationTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
-
                 @Override
                 public void onFocusChange(View view, boolean b) {
                     new TimePickerDialog(AddTodo.this, time, calendar
@@ -134,21 +129,16 @@ public class AddTodo extends Activity {
 
 
         if (bAddCancel != null) {
-
             bAddCancel.setOnClickListener(new View.OnClickListener() {
 
                 //Button Click cancel
                 public void onClick(View view) {
-
                     // change activity to overview
                     Intent overviewIntent = new Intent(AddTodo.this, Overview.class);
                     AddTodo.this.startActivity(overviewIntent);
-
-
                 }
             });
         } // bAddCancel != 0
-
 
         // On Button CLick Add
         if (bAddTodo != null) {
@@ -165,10 +155,9 @@ public class AddTodo extends Activity {
                                     String description = etAddDescription.getText().toString();
                                     String expirationTime = etAddExpirationTime.getText().toString() + ":00";
                                     String expirationDate = etAddExpirationDate.getText().toString();
+                                    String expirationDateTime = todoDBAdapter.formatDateTimeToMysql(expirationDate, expirationTime);
 
-                                    String expirationDateTime = todoDBAdapter.formatDateTimeToMysql(expirationDate,expirationTime);
-
-                                    String isFavourite = "";
+                                    String isFavourite;
                                     if (cbIsFavourite.isChecked()) {
                                         isFavourite = "1";
                                     } else {
@@ -180,10 +169,9 @@ public class AddTodo extends Activity {
                                     todoDBAdapter.close();
 
 
+                                    // show Toast and change activity to overview
                                     Toast toast = Toast.makeText(getApplicationContext(), R.string.addTodo_info_successful_add, Toast.LENGTH_LONG);
                                     toast.show();
-
-                                    // change activity to login or overview
                                     Intent overviewIntent = new Intent(AddTodo.this, Overview.class);
                                     AddTodo.this.startActivity(overviewIntent);
                                 }
@@ -203,12 +191,10 @@ public class AddTodo extends Activity {
             }); // setOnclickListener
         } // bAddTodo != null
 
-
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }//onCreate
-
 
     @Override
     public void onStart() {
@@ -249,12 +235,4 @@ public class AddTodo extends Activity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
-
-    /**
-     *
-     * @param date
-     * @param time
-     * @return
-     */
-
 }

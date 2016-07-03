@@ -1,11 +1,7 @@
 package todo.kebejaol.todo.ListViewAdapter;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.provider.ContactsContract;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,24 +12,23 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import todo.kebejaol.todo.Activities.AddTodo;
 import todo.kebejaol.todo.Activities.DetailTodo;
-import todo.kebejaol.todo.Activities.Overview;
-import todo.kebejaol.todo.Database.TodoDBAdapter;
+import todo.kebejaol.todo.Model.TodoDBAdapter;
 import todo.kebejaol.todo.R;
 
+/**
+ * Created by Jan on 28.06.2016.
+ */
 public class ContactListAdapter extends ArrayAdapter<Contact> {
 
-private final Context context;
-private final ArrayList<Contact> itemsArrayList;
+    private final Context context;
+    private final ArrayList<Contact> itemsArrayList;
 
-public ContactListAdapter(Context context, ArrayList<Contact> itemsArrayList) {
-
+    public ContactListAdapter(Context context, ArrayList<Contact> itemsArrayList) {
         super(context, R.layout.row_contact, itemsArrayList);
-
         this.context = context;
         this.itemsArrayList = itemsArrayList;
-        }
+    }
 
     @Override
     public View getView(final int position, final View convertView, ViewGroup parent) {
@@ -58,8 +53,8 @@ public ContactListAdapter(Context context, ArrayList<Contact> itemsArrayList) {
         hasNumber.setText(contactHasPhone);
 
 
-        if(bAddContact != null)
-        {
+        //Add Contact-Listener
+        if (bAddContact != null) {
             bAddContact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -67,20 +62,17 @@ public ContactListAdapter(Context context, ArrayList<Contact> itemsArrayList) {
                     todoDBAdapter.addContactToTodo(todoID, contactName, contactHasPhone, contactMail, contactPhoneNumber);
                     todoDBAdapter.close();
 
+                    // show Toast and change activity to detailview
                     Toast toast = Toast.makeText(context.getApplicationContext(), R.string.DetailTodo_info_successful_contact_add, Toast.LENGTH_SHORT);
                     toast.show();
-
-                    // change activity to detailview or overview
-                    Intent detailTodoIntent = new Intent(context,DetailTodo.class);
+                    Intent detailTodoIntent = new Intent(context, DetailTodo.class);
                     // Send ID with Intent to DetailTodo
-                    detailTodoIntent.putExtra("id",todoID);
+                    detailTodoIntent.putExtra("id", todoID);
                     context.startActivity(detailTodoIntent);
                 }
             });
         }
-
         return rowView;
     }
-
 }
 

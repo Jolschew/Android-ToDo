@@ -2,8 +2,10 @@ package todo.kebejaol.todo.ListViewAdapter;
 
 /**
  * Created by Jan on 18.06.16.
+ *
  */
 public class Todo {
+
     private String id;
     private String todoName;
     private String description;

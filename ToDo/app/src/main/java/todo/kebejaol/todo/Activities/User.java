@@ -2,11 +2,9 @@ package todo.kebejaol.todo.Activities;
 
 import android.app.Application;
 
-
 /**
  * Created by Jan on 29.06.16.
- * Help-Class for Global Email-Adress
- *
+ * Help-Class for Global Email-Address
  */
 public class User extends Application {
 

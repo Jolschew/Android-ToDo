@@ -7,8 +7,20 @@ public class Contact {
 
     private String id;
     private String name;
+    private String hasPhone;
+    private String mail;
     private String todoID;
     private String phoneNumber;
+
+    public Contact(String id, String name, String hasPhone, String todoID, String mail, String phoneNumber) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.hasPhone = hasPhone;
+        this.todoID = todoID;
+        this.phoneNumber = phoneNumber;
+        this.mail = mail;
+    }
 
     public String getMail() {
         return mail;
@@ -17,8 +29,6 @@ public class Contact {
     public void setMail(String mail) {
         this.mail = mail;
     }
-
-    private String mail;
 
     public String getTodoID() {
         return todoID;
@@ -36,22 +46,6 @@ public class Contact {
         this.hasPhone = hasPhone;
     }
 
-    private String hasPhone;
-
-
-    public Contact(String id, String name, String hasPhone, String todoID, String mail, String phoneNumber) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.hasPhone = hasPhone;
-        this.todoID = todoID;
-        this.phoneNumber = phoneNumber;
-        this.mail = mail;
-
-    }
-
-
-
     public String getName() {
         return name;
     }
@@ -59,7 +53,6 @@ public class Contact {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public String getId() {
         return id;
