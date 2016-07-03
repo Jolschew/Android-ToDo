@@ -23,5 +23,8 @@
     <string name="DetailTodo_info_successful_contact_add">Kontakt hinzugefügt</string>
     <string name="DetailTodo_info_successful_contact_delete">Kontakt entfernt</string>
     <string name="action_daten_aktualisieren">Aktualisieren</string>
+    <string name="menu_seite1">Sortieren nach Erledigt</string>
+    <string name="menu_seite2">Sortieren nach Favorit</string>
+    <string name="menu_seite3">Sortieren nach Datum</string>
 
 </resources>

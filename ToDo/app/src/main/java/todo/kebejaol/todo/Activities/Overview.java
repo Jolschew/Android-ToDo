@@ -6,6 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -25,7 +29,7 @@ import todo.kebejaol.todo.R;
  * Created by Jan on 15.06.2016.
  *
  */
-public class Overview extends Activity {
+public class Overview extends AppCompatActivity {
 
     private GoogleApiClient client;
 
@@ -40,7 +44,7 @@ public class Overview extends Activity {
 
         final ListView lvOverview = (ListView) findViewById(R.id.lvOverview);
         final Button bOverviewAdd = (Button) findViewById(R.id.bOverviewAdd);
-        final Button bSortList = (Button) findViewById(R.id.bSortList);
+
 
         final TodoDBAdapter todoDBAdapter = new TodoDBAdapter(this).open();
 
@@ -81,40 +85,6 @@ public class Overview extends Activity {
             });
         }
 
-        // Alert Dialog onClick Sort Button
-        if (bSortList != null) {
-            bSortList.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    new AlertDialog.Builder(Overview.this)
-                            .setTitle("Sortieren")
-                            .setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int item) {
-                                    Intent detailTodoIntent = new Intent(Overview.this, Overview.class);
-                                    String sorting;
-                                    switch (item) {
-                                        case 0:
-                                            sorting = "is_finished";
-                                            detailTodoIntent.putExtra("sorting", sorting);
-                                            Overview.this.startActivity(detailTodoIntent);
-                                            break;
-                                        case 1:
-                                            sorting = "is_favourite";
-                                            detailTodoIntent.putExtra("sorting", sorting);
-                                            Overview.this.startActivity(detailTodoIntent);
-                                            break;
-                                        case 2:
-                                            sorting = "date";
-                                            detailTodoIntent.putExtra("sorting", sorting);
-                                            Overview.this.startActivity(detailTodoIntent);
-                                            break;
-                                    }
-                                }
-                            })
-                            .show();
-                }
-            });
-        }
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -166,6 +136,33 @@ public class Overview extends Activity {
             items.add(new Todo(c[0], c[1], c[3], c[4], c[5]));
         }
         return items;
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_listfragment, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent detailTodoIntent = new Intent(Overview.this, Overview.class);
+        switch (item.getItemId()) {
+            case R.id.item1:
+                detailTodoIntent.putExtra("sorting", "is_finished");
+                Overview.this.startActivity(detailTodoIntent);
+                return true;
+            case R.id.item2:
+                detailTodoIntent.putExtra("sorting", "is_favourite");
+                Overview.this.startActivity(detailTodoIntent);
+                return true;
+            case R.id.item3:
+                detailTodoIntent.putExtra("sorting", "date");
+                Overview.this.startActivity(detailTodoIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

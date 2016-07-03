@@ -95,7 +95,7 @@
         android:layout_marginTop="0dp">
 
         <Button
-            android:layout_width="177dp"
+            android:layout_width="158dp"
             android:layout_height="40dp"
             android:text="Zurück"
             android:id="@+id/bChangeCancel"

@@ -23,7 +23,7 @@ import todo.kebejaol.todo.Webservice.Webservice;
  * Created by Jan on 25.04.16.
  *
  */
-public class Login extends Activity {
+public class Login extends AppCompatActivity {
 
     Webservice webService = new Webservice();
     final LoginDBAdapter loginDBAdapter = new LoginDBAdapter(this);

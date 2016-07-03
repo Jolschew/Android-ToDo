@@ -72,24 +72,26 @@
         >
 
         <Button
-            android:layout_weight=".70"
+            android:layout_weight="1.12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ToDo anlegen"
             android:id="@+id/bAddTodo"
-            android:layout_marginRight="10sp"
             android:background="@color/colorPrimaryBright"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="10dp"/>
 
-        <Button
-            android:layout_weight=".30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Abbrechen"
-            android:id="@+id/bAddCancel"
-            android:background="#AAAAAA"
-            android:textColor="#FFFFFF" />
     </LinearLayout>
+
+    <Button
+        android:layout_weight=".30"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Abbrechen"
+        android:id="@+id/bAddCancel"
+        android:background="#AAAAAA"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center_horizontal"/>
 
 
 </LinearLayout>
