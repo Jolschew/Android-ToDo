@@ -241,6 +241,7 @@ public class TodoDBAdapter {
     public ArrayList<String[]> getContactsFromPhoneList(ContentResolver resolver, String todoID)
     {
 
+
         ArrayList<String[]> contacts = new ArrayList<String[]>();
 
 
@@ -271,9 +272,6 @@ public class TodoDBAdapter {
 
             String tmpTodo[] = new String[]{id,name,hasPhoneNumber, todoID, mail,phoneNumber};
             contacts.add(tmpTodo);
-
-
-
         }
         cursor.close();
         return contacts;

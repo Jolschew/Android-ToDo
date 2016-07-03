@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -118,18 +117,22 @@ public class DetailviewAdapter extends ArrayAdapter<Contact> {
     }
 
     protected void sendEmail(String mail) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto",mail, null));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Dein ToDo");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Denk an dein ToDo");
+        context.startActivity(Intent.createChooser(emailIntent, "E-Mail"));
 
-
-        String uriText =
-                "mailto:"  +mail+
-                        "?subject=" + Uri.encode("ToDo für dich") +
-                        "&body=" + Uri.encode("Denk an deinen ToDo");
-
-        Uri uri = Uri.parse(uriText);
-
-        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
-        sendIntent.setData(uri);
-        context.startActivity(Intent.createChooser(sendIntent, "Send email"));
+//        String uriText =
+//                "mailto:"  +mail+
+//                        "?subject=" + Uri.encode("ToDo für dich") +
+//                        "&body=" + Uri.encode("Denk an deinen ToDo");
+//
+//        Uri uri = Uri.parse(uriText);
+//
+//        Intent sendIntent = new Intent(Intent.ACTION_SENDTO);
+//        sendIntent.setData(uri);
+//        context.startActivity(Intent.createChooser(sendIntent, "Send email"));
 
     }
 

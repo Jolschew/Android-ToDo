@@ -1,12 +1,11 @@
 package todo.kebejaol.todo.Activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.menu.ExpandedMenuView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -23,7 +22,7 @@ import todo.kebejaol.todo.ListViewAdapter.OverviewAdapter;
 import todo.kebejaol.todo.R;
 
 
-public class Overview extends AppCompatActivity {
+public class Overview extends Activity {
 
     private GoogleApiClient client;
 

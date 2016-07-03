@@ -1,8 +1,8 @@
 package todo.kebejaol.todo.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,9 +16,10 @@ import todo.kebejaol.todo.Database.LoginDBAdapter;
 import todo.kebejaol.todo.R;
 import todo.kebejaol.todo.Webservice.Webservice;
 
-public class Login extends AppCompatActivity{
+public class Login extends Activity{
 
-    //private ProcessDialog progressDialog;
+
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
     Webservice webService = new Webservice();
 
@@ -29,6 +30,7 @@ public class Login extends AppCompatActivity{
 
         //Global varible to get Username on all Acivities
         final User globalUsername = ((User)getApplicationContext());
+
 
 
 
