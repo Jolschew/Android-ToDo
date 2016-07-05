@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import todo.kebejaol.todo.Activities.DetailTodo;
 import todo.kebejaol.todo.Model.TodoDBAdapter;
-import todo.kebejaol.todo.R;
+import todo.oljan.todo.R;
 
 /**
  * Created by Jan on 28.06.2016.

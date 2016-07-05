@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -25,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import todo.kebejaol.todo.Model.TodoDBAdapter;
-import todo.kebejaol.todo.R;
+import todo.oljan.todo.R;
 
 /**
  * Created by Jan on 15.06.2016.

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by Jan on 25.04.16.
- * <p/>
+ *
  * Create new Database if no DB exists
  */
 public class DBHelper extends SQLiteOpenHelper {

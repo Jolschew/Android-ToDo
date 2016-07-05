@@ -4,7 +4,7 @@ import android.app.Application;
 
 /**
  * Created by Jan on 29.06.16.
- * Help-Class for Global Email-Address
+ * Help-Class for  get and set Global Email-Address
  */
 public class User extends Application {
 

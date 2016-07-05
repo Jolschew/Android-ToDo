@@ -1,8 +1,5 @@
 package todo.kebejaol.todo.Activities;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,7 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import todo.kebejaol.todo.Model.TodoDBAdapter;
 import todo.kebejaol.todo.ListViewAdapter.Todo;
 import todo.kebejaol.todo.ListViewAdapter.OverviewAdapter;
-import todo.kebejaol.todo.R;
+import todo.oljan.todo.R;
 
 /**
  * Created by Jan on 15.06.2016.

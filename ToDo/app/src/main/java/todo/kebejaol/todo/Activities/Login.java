@@ -1,6 +1,5 @@
 package todo.kebejaol.todo.Activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import todo.kebejaol.todo.Model.LoginDBAdapter;
-import todo.kebejaol.todo.R;
+import todo.oljan.todo.R;
 import todo.kebejaol.todo.Webservice.Webservice;
 
 /**
