@@ -20,7 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import todo.kebejaol.todo.Model.TodoDBAdapter;
 import todo.kebejaol.todo.ListViewAdapter.Todo;
 import todo.kebejaol.todo.ListViewAdapter.OverviewAdapter;
-import todo.oljan.todo.R;
+import todo.kebejaol.todo.R;
 
 /**
  * Created by Jan on 15.06.2016.

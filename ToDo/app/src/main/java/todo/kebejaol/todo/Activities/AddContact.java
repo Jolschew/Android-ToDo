@@ -14,11 +14,10 @@ import java.util.ArrayList;
 import todo.kebejaol.todo.Model.TodoDBAdapter;
 import todo.kebejaol.todo.ListViewAdapter.Contact;
 import todo.kebejaol.todo.ListViewAdapter.ContactListAdapter;
-import todo.oljan.todo.R;
+import todo.kebejaol.todo.R;
 
 /**
  * Created by Jan on 28.06.2016.
- *
  */
 public class AddContact extends Activity {
 

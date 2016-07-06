@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import todo.kebejaol.todo.Activities.DetailTodo;
 import todo.kebejaol.todo.Model.TodoDBAdapter;
-import todo.oljan.todo.R;
+import todo.kebejaol.todo.R;
 
 public class OverviewAdapter extends ArrayAdapter<Todo> {
 

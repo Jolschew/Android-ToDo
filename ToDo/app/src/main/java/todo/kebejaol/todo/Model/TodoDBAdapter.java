@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 /**
  * Created by Jan on 17.06.16.
- * <p/>
  * Handle CRUD Operations
  */
 public class TodoDBAdapter {

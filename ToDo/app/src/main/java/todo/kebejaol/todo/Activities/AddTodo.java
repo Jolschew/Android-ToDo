@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import todo.kebejaol.todo.Model.TodoDBAdapter;
-import todo.oljan.todo.R;
+import todo.kebejaol.todo.R;
 
 /**
  * Created by Jan on 15.06.2016.

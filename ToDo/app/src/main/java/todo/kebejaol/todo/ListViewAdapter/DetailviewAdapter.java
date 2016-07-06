@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import todo.kebejaol.todo.Activities.Overview;
 import todo.kebejaol.todo.Model.TodoDBAdapter;
-import todo.oljan.todo.R;
+import todo.kebejaol.todo.R;
 
 public class DetailviewAdapter extends ArrayAdapter<Contact> {
 

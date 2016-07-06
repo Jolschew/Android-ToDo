@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import todo.kebejaol.todo.Model.LoginDBAdapter;
-import todo.oljan.todo.R;
+import todo.kebejaol.todo.R;
 import todo.kebejaol.todo.Webservice.Webservice;
 
 /**

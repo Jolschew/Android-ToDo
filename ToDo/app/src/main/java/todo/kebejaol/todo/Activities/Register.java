@@ -15,7 +15,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import todo.kebejaol.todo.Model.LoginDBAdapter;
-import todo.oljan.todo.R;
+import todo.kebejaol.todo.R;
 
 
 /**

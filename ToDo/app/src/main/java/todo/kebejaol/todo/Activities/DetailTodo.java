@@ -24,7 +24,7 @@ import java.util.Calendar;
 import todo.kebejaol.todo.Model.TodoDBAdapter;
 import todo.kebejaol.todo.ListViewAdapter.Contact;
 import todo.kebejaol.todo.ListViewAdapter.DetailviewAdapter;
-import todo.oljan.todo.R;
+import todo.kebejaol.todo.R;
 
 /**
  * Created by Jan on 19.06.2016.
